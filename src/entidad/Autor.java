@@ -3,7 +3,7 @@ package entidad;
 import java.sql.Date;
 
 public class Autor {
-
+//Rubio Guerrero
 	private int idAutor;
 	private String nombres;
 	private String apellidos;
