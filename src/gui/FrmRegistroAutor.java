@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
 
 public class FrmRegistroAutor extends JInternalFrame implements ActionListener {
 
@@ -30,9 +31,10 @@ public class FrmRegistroAutor extends JInternalFrame implements ActionListener {
 	private JTextField txtNombres;
 	private JTextField txtApellidos;
 	private JTextField txtFechaNacimiento;
-	private JTextField txtPais;
-	private JTextField txtGrado;
 	private JButton btnRegistrar;
+	private JComboBox<String> cboPais;
+	private JComboBox<String> cboGrado;
+	
 
 	public FrmRegistroAutor() {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -92,23 +94,30 @@ public class FrmRegistroAutor extends JInternalFrame implements ActionListener {
 		txtFechaNacimiento.setBounds(410, 191, 273, 30);
 		getContentPane().add(txtFechaNacimiento);
 		
-		txtPais = new JTextField();
-		txtPais.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		txtPais.setColumns(10);
-		txtPais.setBounds(410, 253, 273, 30);
-		getContentPane().add(txtPais);
-		
-		txtGrado = new JTextField();
-		txtGrado.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		txtGrado.setColumns(10);
-		txtGrado.setBounds(410, 306, 273, 30);
-		getContentPane().add(txtGrado);
-		
 		btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(this);
 		btnRegistrar.setFont(new Font("Tahoma", Font.BOLD, 24));
 		btnRegistrar.setBounds(386, 379, 177, 66);
 		getContentPane().add(btnRegistrar);
+		
+		cboPais = new JComboBox<String>();
+		cboPais.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		cboPais.setBounds(411, 254, 272, 30);
+		cboPais.addItem("[Seleccione]");
+		cboPais.addItem("Perú");
+		cboPais.addItem("Chile");
+		cboPais.addItem("Ecuador");
+		cboPais.addItem("Colombia");
+		getContentPane().add(cboPais);
+		
+		cboGrado = new JComboBox<String>();
+		cboGrado.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		cboGrado.setBounds(411, 306, 272, 30);
+		cboGrado.addItem("[Seleccione]");
+		cboGrado.addItem("Técnico");
+		cboGrado.addItem("Licenciado");
+		cboGrado.addItem("Doctor");
+		getContentPane().add(cboGrado);
 	}
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnRegistrar) {
@@ -123,8 +132,10 @@ public class FrmRegistroAutor extends JInternalFrame implements ActionListener {
 		txtNombres.setText("");
 		txtApellidos.setText("");
 		txtFechaNacimiento.setText("");
-		txtPais.setText("");
-		txtGrado.setText("");
+		cboPais.setSelectedIndex(0);
+		cboGrado.setSelectedIndex(0);
+		txtNombres.requestFocus();
+	
 		
 	}
 	
@@ -133,8 +144,8 @@ public class FrmRegistroAutor extends JInternalFrame implements ActionListener {
 		String nombresUI = txtNombres.getText();
 		String apellidosUI = txtApellidos.getText();
 		String fechaNacimientoUI = txtFechaNacimiento.getText();
-		String paisUI = txtPais.getText();
-		String gradoUI = txtGrado.getText();
+		String paisUI = cboPais.getSelectedItem().toString();
+		String gradoUI = cboGrado.getSelectedItem().toString();
 		
 		//Hacemos las validaciones
 		if(!nombresUI.matches(Validaciones.TEXTO)) {
@@ -143,10 +154,10 @@ public class FrmRegistroAutor extends JInternalFrame implements ActionListener {
 			mensaje("Los apellidos deben tener entre 3 a 30 caracteres");
 		}else if(!fechaNacimientoUI.matches(Validaciones.FECHA)) {
 			mensaje("La fecha debe tener el fromato yyyy-mm-dd");
-		}else if(!paisUI.matches(Validaciones.TEXTO)) {
-			mensaje("El pais debe tener 3 a 30 caracteres");
-		}else if(!gradoUI.matches(Validaciones.TEXTO)) {
-			mensaje("El grado debe tener entre 3 a 30 caracteres");
+		}else if(cboPais.getSelectedIndex() ==0) {
+			mensaje("Seleccione un país");
+		}else if(cboGrado.getSelectedIndex() ==0) {
+			mensaje("Seleccione un grado");
 		}else {
 			//Creacion del objeto
 			Autor oAutor = new Autor();
@@ -171,5 +182,4 @@ public class FrmRegistroAutor extends JInternalFrame implements ActionListener {
 		limpiarDatos();
 		
 	}
-	
 }
