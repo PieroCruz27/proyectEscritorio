@@ -9,7 +9,7 @@ public class Alumno {
 	private int idAlumno;
 	private String nombre;
 	private String apellido;
-	private int dni;
+	private String dni;
 	private String pais;
 	private String correo;
 	private Date fechanac;
@@ -29,10 +29,10 @@ public class Alumno {
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
-	public int getDni() {
+	public String getDni() {
 		return dni;
 	}
-	public void setDni(int dni) {
+	public void setDni(String dni) {
 		this.dni = dni;
 	}
 	public String getPais() {
