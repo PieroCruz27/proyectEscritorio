@@ -117,6 +117,7 @@ public class FrmRegistroAutor extends JInternalFrame implements ActionListener {
 		cboGrado.addItem("Técnico");
 		cboGrado.addItem("Licenciado");
 		cboGrado.addItem("Doctor");
+		cboGrado.addItem("Autor");
 		getContentPane().add(cboGrado);
 	}
 	public void actionPerformed(ActionEvent e) {
@@ -154,12 +155,12 @@ public class FrmRegistroAutor extends JInternalFrame implements ActionListener {
 			mensaje("Los apellidos deben tener entre 3 a 30 caracteres");
 		}else if(!fechaNacimientoUI.matches(Validaciones.FECHA)) {
 			mensaje("La fecha debe tener el fromato yyyy-mm-dd");
-		}else if(cboPais.getSelectedIndex() ==0) {
+		}else if(cboPais.getSelectedIndex() == 0) {
 			mensaje("Seleccione un país");
-		}else if(cboGrado.getSelectedIndex() ==0) {
+		}else if(cboGrado.getSelectedIndex() == 0) {
 			mensaje("Seleccione un grado");
 		}else {
-			//Creacion del objeto
+			//CreaciÓn del objeto
 			Autor oAutor = new Autor();
 			oAutor.setNombres(nombresUI);
 			oAutor.setApellidos(apellidosUI);
@@ -174,12 +175,13 @@ public class FrmRegistroAutor extends JInternalFrame implements ActionListener {
 			
 			if (salida>0) {
 				mensaje("Se registró el autor correctamente");
+				limpiarDatos();
 			}else {
 				mensaje("Error en el registro");
 			}
 		}
 		
-		limpiarDatos();
+		
 		
 	}
 }

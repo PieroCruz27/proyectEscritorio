@@ -38,11 +38,10 @@ public class AutorModel {
 
 		} finally {
 			try {
-				if (con != null)
-					con.close();
-				if (pst != null)
-					pst.close();
+				if(pst != null) pst.close();
+				if(con != null) con.close();
 			} catch (Exception e2) {
+				e2.printStackTrace();
 			}
 		}
 
