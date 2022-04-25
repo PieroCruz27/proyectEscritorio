@@ -1,15 +1,22 @@
 package entidad;
 
+import java.sql.Date;
+
 public class Alumno {
 
 	//Vallas Herencia
 	
+	private int idAlumno;
 	private String nombre;
 	private String apellido;
 	private int dni;
 	private String pais;
 	private String correo;
-	private String fechanac;
+	private Date fechanac;
+	private Date fechareg;
+	
+	
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -40,11 +47,23 @@ public class Alumno {
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-	public String getFechanac() {
+	public Date getFechanac() {
 		return fechanac;
 	}
-	public void setFechanac(String fechanac) {
+	public void setFechanac(Date fechanac) {
 		this.fechanac = fechanac;
+	}
+	public int getIdAlumno() {
+		return idAlumno;
+	}
+	public void setIdAlumno(int idAlumno) {
+		this.idAlumno = idAlumno;
+	}
+	public Date getFechareg() {
+		return fechareg;
+	}
+	public void setFechareg(Date fechareg) {
+		this.fechareg = fechareg;
 	}
 	
 	
