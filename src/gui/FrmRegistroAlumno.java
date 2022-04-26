@@ -3,12 +3,16 @@ package gui;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class FrmRegistroAlumno extends JInternalFrame {
+public class FrmRegistroAlumno extends JInternalFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JLabel lblNewLabel;
@@ -96,12 +100,36 @@ public class FrmRegistroAlumno extends JInternalFrame {
 		getContentPane().add(txtFecha);
 		
 		cboPais = new JComboBox<String>();
+		cboPais.addItem("Seleccione:");
+		cboPais.addItem("Perú");
+		cboPais.addItem("Chile");
+		cboPais.addItem("Ecuador");
+		cboPais.addItem("Colombia");
+		cboPais.addItem("Venezuela");
 		cboPais.setBounds(386, 324, 142, 21);
 		getContentPane().add(cboPais);
 		
 		btnEnviar = new JButton("Enviar");
+		btnEnviar.addActionListener(this);
 		btnEnviar.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnEnviar.setBounds(345, 426, 142, 33);
 		getContentPane().add(btnEnviar);
 	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnEnviar) {
+			actionPerformedBtnEnviarJButton(e);
+		}
+	}
+	protected void actionPerformedBtnEnviarJButton(ActionEvent e) {
+		String name = txtNombres.getText();
+		String ape = txtApellidos.getText();
+		String dni = txtDni.getText();
+		String email = txtCorreo.getText();
+		String pais = cboPais.getSelectedItem().toString();
+		String fecha = txtFecha.getText();
+	}
+	
+	 public void mensaje (String ms) {
+		 JOptionPane.showMessageDialog(this, ms);
+	 }
 }
