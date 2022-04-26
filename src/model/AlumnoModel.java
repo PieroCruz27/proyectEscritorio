@@ -23,13 +23,13 @@ public class AlumnoModel {
 		try {
 			cn = MySqlDBConexion.getConexion();
 			
-			String sql = "insert into alumno values (null, ?, ?, ?, ?, ?, ?, curtime()";
+			String sql = "insert into alumno values(null,?,?,?,?,?,?,curtime())";
 			prep = cn.prepareStatement(sql);
 			prep.setString(1, al.getNombre());
 			prep.setString(2, al.getApellido());
 			prep.setString(3, al.getDni());
-			prep.setString(4, al.getCorreo());
-			prep.setString(5, al.getPais());
+			prep.setString(4, al.getPais());
+			prep.setString(5, al.getCorreo());
 			prep.setDate(6, al.getFechanac());
 			
 			log.info(">> SQL >>" + prep);
