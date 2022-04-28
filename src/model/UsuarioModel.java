@@ -48,7 +48,7 @@ public class UsuarioModel {
 		}
 		return bean;
 	}
-
+//x
 	public List<Opcion> obtieneOpciones(int idUsuario) {
 		ArrayList<Opcion> data = new ArrayList<Opcion>();
 		Opcion bean = null;

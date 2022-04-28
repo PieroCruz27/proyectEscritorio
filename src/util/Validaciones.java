@@ -1,7 +1,7 @@
 package util;
 
 public class Validaciones {
-	public static final String TEXTO = "[a-zA-ZáéíóúñüÁÉÍÓÚÑÜ\\s]{2,20}";
+	public static final String TEXTO = "[a-zA-ZáéíóúñüÁÉÍÓÚÑÜ\\s]{3,30}";
 	public static final String DNI = "[0-9]{8}";
 	public static final String NUM_HIJOS = "[0-9]|[1][0]";
 	public static final String SUELDO = "(\\d+)|(\\d+[.]\\d{1,2})";
@@ -20,5 +20,9 @@ public class Validaciones {
 	public static final String TEXTO_NUMERO = "[0-9a-zA-ZáéíóúñüÁÉÍÓÚÑÜ\\s]{2,40}";
 	public static final String NUMERO = "[0-9]{1,1000}";
 	public static final String SERIECRUDLIBRO= "[a-zA-ZáéíóúñüÁÉÍÓÚÑÜ\\s]{2,100}";
-	
+	public static final String ID= "[0-9]{8}";
+	public static final String LOGIN = "[a-zA-ZáéíóúñüÁÉÍÓÚÑÜ\\s]{3,30}";
+	public static final String DIRECCION= "[0-9a-zA-ZáéíóúñüÁÉÍÓÚÑÜ\\s]{2,40}";
+	public static final String PAS = "[0-9a-zA-ZáéíóúñüÁÉÍÓÚÑÜ\\s]{2,40}";
+	public static final String FECHAN = "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)";
 }

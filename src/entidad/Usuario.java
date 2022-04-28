@@ -15,7 +15,7 @@ public class Usuario {
 	private Date fechaNacimiento;
 	private String direccion;
 	private String pais;
-	
+	//
 	public int getIdUsuario() {
 		return idUsuario;
 	}
