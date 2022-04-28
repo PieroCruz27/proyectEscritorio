@@ -3,7 +3,7 @@ package entidad;
 import java.util.Date;
 
 public class Usuario {
-
+	//castillo cruz
 	private int idUsuario;
 	private String nombre;
 	private String apellido;
