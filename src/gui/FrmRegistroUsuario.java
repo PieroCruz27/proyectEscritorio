@@ -22,14 +22,12 @@ import javax.swing.JComboBox;
 public class FrmRegistroUsuario extends JInternalFrame implements ActionListener, KeyListener {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField txtUsuario;
 	private JTextField txtNombre;
 	private JTextField txtApellidos;
 	private JTextField txtDNI;
 	private JTextField txtLogin;
 	private JTextField txtPasword;
 	private JTextField txtCorreo;
-	private JTextField txtFecha;
 	private JTextField txtNacimiento;
 	private JTextField txtDireccion;
 	private JButton btnRegistrar;
@@ -43,15 +41,6 @@ public class FrmRegistroUsuario extends JInternalFrame implements ActionListener
 		setTitle("Ingreso de Usuario");
 		setBounds(100, 100, 900, 550);
 		getContentPane().setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("Id  Usuario");
-		lblNewLabel.setBounds(65, 24, 73, 13);
-		getContentPane().add(lblNewLabel);
-		
-		txtUsuario = new JTextField();
-		txtUsuario.setBounds(168, 21, 96, 19);
-		getContentPane().add(txtUsuario);
-		txtUsuario.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre");
 		lblNewLabel_1.setBounds(65, 68, 45, 13);
@@ -108,15 +97,6 @@ public class FrmRegistroUsuario extends JInternalFrame implements ActionListener
 		getContentPane().add(txtCorreo);
 		txtCorreo.setColumns(10);
 		
-		JLabel lblNewLabel_7 = new JLabel(" FechaRegistro");
-		lblNewLabel_7.setBounds(54, 345, 73, 13);
-		getContentPane().add(lblNewLabel_7);
-		
-		txtFecha = new JTextField();
-		txtFecha.setBounds(168, 342, 96, 19);
-		getContentPane().add(txtFecha);
-		txtFecha.setColumns(10);
-		
 		JLabel lblNewLabel_8 = new JLabel("Nacimiento");
 		lblNewLabel_8.setBounds(65, 384, 55, 13);
 		getContentPane().add(lblNewLabel_8);
@@ -164,22 +144,17 @@ public class FrmRegistroUsuario extends JInternalFrame implements ActionListener
 		}
 	}
 	protected void actionPerformedBtnRegistrarJButton(ActionEvent e) {
-		String id= txtUsuario.getText().trim();
 		String nom = txtNombre.getText().trim();
 		String ape = txtApellidos.getText().trim();
 		String dni = txtDNI.getText().trim();
 		String log = txtLogin.getText().trim();
 		String pas = txtPasword.getText().trim();
 		String corr = txtCorreo.getText().trim();
-		String fechReg = txtFecha.getText().trim();
 		String fechNa = txtNacimiento.getText().trim();
 		String direc = txtDireccion.getText().trim();
 		
 
-		if (!id.matches(Validaciones.ID)) {
-			mensaje("complete bien el id");
-		
-		}else if(!nom.matches(Validaciones.TEXTO)) {
+		if(!nom.matches(Validaciones.TEXTO)) {
 			mensaje("El apellido es de 3 a 30 caracteres ");
 			
 		}else if(!ape.matches(Validaciones.TEXTO)) {
@@ -196,10 +171,6 @@ public class FrmRegistroUsuario extends JInternalFrame implements ActionListener
 			
 		}else if(!corr.matches(Validaciones.CORREO)) {
 			mensaje("El correo esta incorrecto ");	
-			
-		}else if (!fechReg.matches(Validaciones.FECHAREGISTRO)) {
-
-			mensaje("la fecha es yy-mm-dd");
 			
 		}else if (!fechNa.matches(Validaciones.FECHA)) {
 

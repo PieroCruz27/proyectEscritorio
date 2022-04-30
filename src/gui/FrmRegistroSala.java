@@ -27,15 +27,13 @@ public class FrmRegistroSala extends JInternalFrame implements ActionListener, K
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
 	private JLabel lblNewLabel_3;
-	private JLabel lblNewLabel_4;
 	private JLabel lblNewLabel_5;
 	private JLabel lblNewLabel_6;
-	private JComboBox cboPiso;
-	private JComboBox cboSede;
+	private JComboBox<String> cboPiso;
+	private JComboBox<String> cboSede;
 	private JTextField txtNumero;
 	private JTextField txtNumAlumn;
 	private JTextField txtRecursos;
-	private JTextField txtEstado;
 	private JButton btnRegistrar;
 
 	public FrmRegistroSala() {
@@ -67,14 +65,9 @@ public class FrmRegistroSala extends JInternalFrame implements ActionListener, K
 		lblNewLabel_3.setBounds(301, 249, 154, 13);
 		getContentPane().add(lblNewLabel_3);
 
-		lblNewLabel_4 = new JLabel("Estado:");
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_4.setBounds(301, 289, 154, 13);
-		getContentPane().add(lblNewLabel_4);
-
 		lblNewLabel_5 = new JLabel("Sede:");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_5.setBounds(301, 333, 154, 13);
+		lblNewLabel_5.setBounds(301, 294, 154, 13);
 		getContentPane().add(lblNewLabel_5);
 
 		lblNewLabel_6 = new JLabel("Registro de sala");
@@ -83,15 +76,15 @@ public class FrmRegistroSala extends JInternalFrame implements ActionListener, K
 		lblNewLabel_6.setBounds(10, 26, 868, 53);
 		getContentPane().add(lblNewLabel_6);
 
-		cboPiso = new JComboBox();
-		cboPiso.setModel(new DefaultComboBoxModel(new String[] { "Seleccione", "1", "2", "3", "4", "5" }));
+		cboPiso = new JComboBox<String>();
+		cboPiso.setModel(new DefaultComboBoxModel<String>(new String[] { "Seleccione", "1", "2", "3", "4", "5" }));
 		cboPiso.setBounds(465, 166, 96, 21);
 		getContentPane().add(cboPiso);
 
-		cboSede = new JComboBox();
-		cboSede.setModel(new DefaultComboBoxModel(new String[] { "Seleccione", "Lima", "Bellavista ", "Bre\u00F1a",
+		cboSede = new JComboBox<String>();
+		cboSede.setModel(new DefaultComboBoxModel<String>(new String[] { "Seleccione", "Lima", "Bellavista ", "Bre\u00F1a",
 				"Arequipa", "Trujillo", "Independencia", "Surco" }));
-		cboSede.setBounds(465, 331, 96, 21);
+		cboSede.setBounds(465, 292, 96, 21);
 		getContentPane().add(cboSede);
 
 		txtNumero = new JTextField();
@@ -110,16 +103,10 @@ public class FrmRegistroSala extends JInternalFrame implements ActionListener, K
 		getContentPane().add(txtRecursos);
 		txtRecursos.setColumns(10);
 
-		txtEstado = new JTextField();
-		txtEstado.addKeyListener(this);
-		txtEstado.setBounds(465, 288, 37, 19);
-		getContentPane().add(txtEstado);
-		txtEstado.setColumns(10);
-
 		btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(this);
 		btnRegistrar.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnRegistrar.setBounds(393, 412, 109, 21);
+		btnRegistrar.setBounds(392, 346, 109, 21);
 		getContentPane().add(btnRegistrar);
 	}
 
@@ -138,7 +125,6 @@ public class FrmRegistroSala extends JInternalFrame implements ActionListener, K
 		String piso = cboPiso.getSelectedItem().toString();
 		String numAlu = txtNumAlumn.getText();
 		String rec = txtRecursos.getText();
-		String estado = txtEstado.getText();
 		String sede = cboSede.getSelectedItem().toString();
 
 		if (!num.matches(Validaciones.TEXTO_NUMERO)) {
@@ -149,8 +135,6 @@ public class FrmRegistroSala extends JInternalFrame implements ActionListener, K
 			mensaje("El número de alumnos debe ser mayor a 0");
 		} else if (!rec.matches(Validaciones.TEXTO_NUMERO)) {
 			mensaje("El recurso es de 3 a 30 caracteres");
-		} else if (!estado.matches(Validaciones.NUMERO)) {
-			mensaje("El estado es un número mayor a 0");
 		} else if (cboSede.getSelectedIndex() == 0) {
 			mensaje("Seleccione una sede");
 		} else {
@@ -159,9 +143,9 @@ public class FrmRegistroSala extends JInternalFrame implements ActionListener, K
 			obj.setPiso(Integer.parseInt(piso));
 			obj.setNumAlumnos(Integer.parseInt(numAlu));
 			obj.setRecursos(rec);
-			obj.setEstado(Integer.parseInt(estado));
 			obj.setSede(sede);
-
+			obj.setEstado(1);
+			
 			SalaModel model = new SalaModel();
 			int salida = model.insertaSala(obj);
 			if (salida > 0) {
@@ -179,9 +163,6 @@ public class FrmRegistroSala extends JInternalFrame implements ActionListener, K
 	}
 
 	public void keyTyped(KeyEvent e) {
-		if (e.getSource() == txtEstado) {
-			keyTypedTxtEstado(e);
-		}
 		if (e.getSource() == txtNumAlumn) {
 			keyTypedTxtNumAlumn(e);
 		}
@@ -189,16 +170,6 @@ public class FrmRegistroSala extends JInternalFrame implements ActionListener, K
 
 	protected void keyTypedTxtNumAlumn(KeyEvent e) {
 		if (!Character.isDigit(e.getKeyChar())) {
-			e.consume();
-		}
-	}
-
-	protected void keyTypedTxtEstado(KeyEvent e) {
-		if (!Character.isDigit(e.getKeyChar())) {
-			e.consume();
-		}
-		String textoGenerado = txtEstado.getText().trim() + e.getKeyChar();
-		if (textoGenerado.length() > 1) {
 			e.consume();
 		}
 	}
