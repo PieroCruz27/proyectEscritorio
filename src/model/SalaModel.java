@@ -18,14 +18,13 @@ public class SalaModel {
 		try {
 			conn = MySqlDBConexion.getConexion();
 
-			String sql = "insert into sala values(null,?,?,?,?,?,curtime(),?)";
+			String sql = "insert into sala values(null,?,?,?,?,1,curtime(),?)";
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, obj.getNumero());
 			pstm.setInt(2, obj.getPiso());
 			pstm.setInt(3, obj.getNumAlumnos());
 			pstm.setString(4, obj.getRecursos());
-			pstm.setInt(5, obj.getEstado());
-			pstm.setString(6, obj.getSede());
+			pstm.setString(5, obj.getSede());
 
 			log.info("sql --> " + pstm);
 

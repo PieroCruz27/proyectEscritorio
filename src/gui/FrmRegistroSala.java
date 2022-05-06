@@ -144,7 +144,6 @@ public class FrmRegistroSala extends JInternalFrame implements ActionListener, K
 			obj.setNumAlumnos(Integer.parseInt(numAlu));
 			obj.setRecursos(rec);
 			obj.setSede(sede);
-			obj.setEstado(1);
 			
 			SalaModel model = new SalaModel();
 			int salida = model.insertaSala(obj);

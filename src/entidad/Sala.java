@@ -10,7 +10,6 @@ public class Sala {
 	private int piso;
 	private int numAlumnos;
 	private String recursos;
-	private int estado;
 	private Date fechaRegistro;
 	private String sede;
 	
@@ -44,12 +43,6 @@ public class Sala {
 	}
 	public void setRecursos(String recursos) {
 		this.recursos = recursos;
-	}
-	public int getEstado() {
-		return estado;
-	}
-	public void setEstado(int estado) {
-		this.estado = estado;
 	}
 	public Date getFechaRegistro() {
 		return fechaRegistro;
