@@ -8,6 +8,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+
+import entidad.Usuario;
+import model.UsuarioModel;
+import util.Conversiones;
 import util.Validaciones;
 
 import javax.swing.JButton;
@@ -152,10 +156,11 @@ public class FrmRegistroUsuario extends JInternalFrame implements ActionListener
 		String corr = txtCorreo.getText().trim();
 		String fechNa = txtNacimiento.getText().trim();
 		String direc = txtDireccion.getText().trim();
+		String pais = cboPais.getSelectedItem().toString();
 		
 
 		if(!nom.matches(Validaciones.TEXTO)) {
-			mensaje("El apellido es de 3 a 30 caracteres ");
+			mensaje("El nombre es de 3 a 30 caracteres ");
 			
 		}else if(!ape.matches(Validaciones.TEXTO)) {
 			mensaje("El apellido es de 3 a 30 caracteres ");
@@ -177,9 +182,33 @@ public class FrmRegistroUsuario extends JInternalFrame implements ActionListener
 			mensaje("la fecha es yy-mm-dd");
 		}else if (!direc.matches(Validaciones.DIRECCION)) {
 
-			mensaje("todos los datos son correctos");
+			mensaje("complete bien la direccion");
+		}else if (cboPais.getSelectedIndex() ==0) {
+
+			mensaje("selecione el pais");
+			
+		}else {
+			Usuario obj = new Usuario();
+			obj.setNombre(nom);
+			obj.setApellido(ape);
+			obj.setDni(dni);
+			obj.setLogin(log);
+			obj.setPassword(pas);
+			obj.setCorreo(corr);
+			obj.setFechaNacimiento(Conversiones.toFecha(fechNa));
+			obj.setDireccion(direc);
+			obj.setPais(pais);
+			
+			UsuarioModel model = new UsuarioModel();
+			int salida = model.insertaUsuario(obj);
+			if(salida > 0 ) {
+				mensaje("Registro exitoso");
+			}else {
+				mensaje("Error en el registro");
+			}
 		}
 	}
+	
 
 	
 	public void keyPressed(KeyEvent e) {

@@ -27,6 +27,7 @@ public class ProveedorModel {
 			pstm.setString(5,obj.getTelefono());
 			pstm.setString(6,obj.getCorreo());
 			pstm.setString(7,obj.getPais());
+		
 			
 			log.info("sql -->"+pstm);
 			salida= pstm.executeUpdate();

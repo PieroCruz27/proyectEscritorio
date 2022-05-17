@@ -1,6 +1,6 @@
 package entidad;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Usuario {
 	//castillo cruz
@@ -81,6 +81,14 @@ public class Usuario {
 	}
 	public void setPais(String pais) {
 		this.pais = pais;
+	}
+	
+	@Override
+	public String toString() {
+		return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni
+				+ ", login=" + login + ", password=" + password + ", correo=" + correo + ", fechaRegistro="
+				+ fechaRegistro + ", fechaNacimiento=" + fechaNacimiento + ", direccion=" + direccion + ", pais=" + pais
+				+ "]";
 	}
 
 	
