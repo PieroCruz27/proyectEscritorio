@@ -64,9 +64,9 @@ public class FrmCrudAutor extends JInternalFrame implements ActionListener, Mous
 		setBounds(100, 100, 900, 550);
 		getContentPane().setLayout(null);
 
-		lblTitulo = new JLabel("Mantenimiento Autor");
+		lblTitulo = new JLabel("Mantenimiento de Autor");
 		lblTitulo.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblTitulo.setBounds(325, 11, 246, 33);
+		lblTitulo.setBounds(306, 11, 246, 33);
 		getContentPane().add(lblTitulo);
 
 		lblNombres = new JLabel("Nombres");
@@ -109,8 +109,7 @@ public class FrmCrudAutor extends JInternalFrame implements ActionListener, Mous
 
 		cboPais = new JComboBox<String>();
 		cboPais.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cboPais.setModel(new DefaultComboBoxModel<String>(
-				new String[] { "[Seleccione]", "Per\u00FA", "Chile", "Ecuador", "Colombia" }));
+		cboPais.setModel(new DefaultComboBoxModel<String>(new String[] {"[Seleccione]", "Per\u00FA", "Chile", "Ecuador", "Colombia", "Argentina"}));
 		cboPais.setBounds(441, 111, 130, 22);
 		getContentPane().add(cboPais);
 
@@ -149,24 +148,22 @@ public class FrmCrudAutor extends JInternalFrame implements ActionListener, Mous
 		getContentPane().add(scrollPane);
 
 		tblAutor = new JTable();
+		tblAutor.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		tblAutor.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"C\u00F3digo", "Nombres", "Apellidos", "Fecha de nacimiento", "Pa\u00EDs", "Grado"
+			}
+		));
 		tblAutor.addMouseListener(this);
-		tblAutor.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "Id", "Nombres", "Apellidos", "Fecha de nacimiento", "Pa\u00EDs", "Grado" }));
 		scrollPane.setViewportView(tblAutor);
 
-		// --- Poner un tamaño y centrar los datos de las columnas 0 y 3 ------
+		// Poner un tamaño y centrar los datos de las columnas 0 y 3 
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 		tblAutor.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
 		tblAutor.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
-
-		// --- Poner un tamaño a las columnas ---
-		tblAutor.getColumnModel().getColumn(0).setPreferredWidth(30);
-		tblAutor.getColumnModel().getColumn(1).setPreferredWidth(190);
-		tblAutor.getColumnModel().getColumn(2).setPreferredWidth(190);
-		tblAutor.getColumnModel().getColumn(3).setPreferredWidth(150);
-		tblAutor.getColumnModel().getColumn(4).setPreferredWidth(110);
-		tblAutor.getColumnModel().getColumn(5).setPreferredWidth(110);
 
 		// Seleccionar una sola fila
 		tblAutor.setRowSelectionAllowed(true);
@@ -177,6 +174,14 @@ public class FrmCrudAutor extends JInternalFrame implements ActionListener, Mous
 		tblAutor.setDefaultEditor(Object.class, null);
 		// Color de la fila seleccionada
 		tblAutor.setSelectionBackground(Color.GRAY);
+		
+		// Poner un tamaño a las columnas 
+		tblAutor.getColumnModel().getColumn(0).setPreferredWidth(70);
+		tblAutor.getColumnModel().getColumn(1).setPreferredWidth(190);
+		tblAutor.getColumnModel().getColumn(2).setPreferredWidth(190);
+		tblAutor.getColumnModel().getColumn(3).setPreferredWidth(140);
+		tblAutor.getColumnModel().getColumn(4).setPreferredWidth(110);
+		tblAutor.getColumnModel().getColumn(5).setPreferredWidth(100);
 
 		// Efecto Rollover
 		tblAutor.addMouseMotionListener(new MouseMotionListener() {
