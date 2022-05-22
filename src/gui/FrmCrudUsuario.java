@@ -88,39 +88,39 @@ public class FrmCrudUsuario extends JInternalFrame implements ActionListener, Mo
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre");
-		lblNewLabel_1.setBounds(44, 114, 45, 13);
+		lblNewLabel_1.setBounds(44, 103, 45, 13);
 		contentPane.add(lblNewLabel_1);
 		
 		txtNombre = new JTextField();
 		txtNombre.setColumns(10);
-		txtNombre.setBounds(127, 111, 144, 19);
+		txtNombre.setBounds(127, 100, 144, 19);
 		contentPane.add(txtNombre);
 		
 		JLabel lblNewLabel_2 = new JLabel("Apellidos");
-		lblNewLabel_2.setBounds(44, 156, 70, 13);
+		lblNewLabel_2.setBounds(44, 142, 70, 13);
 		contentPane.add(lblNewLabel_2);
 		
 		txtApellido = new JTextField();
 		txtApellido.setColumns(10);
-		txtApellido.setBounds(127, 153, 144, 19);
+		txtApellido.setBounds(127, 139, 144, 19);
 		contentPane.add(txtApellido);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("DNI");
-		lblNewLabel_1_1.setBounds(44, 196, 45, 13);
+		lblNewLabel_1_1.setBounds(44, 183, 45, 13);
 		contentPane.add(lblNewLabel_1_1);
 		
 		txtdni = new JTextField();
 		txtdni.setColumns(10);
-		txtdni.setBounds(127, 193, 144, 19);
+		txtdni.setBounds(127, 180, 144, 19);
 		contentPane.add(txtdni);
 		
 		JLabel lblNewLabel_2_1 = new JLabel("Login");
-		lblNewLabel_2_1.setBounds(44, 233, 60, 13);
+		lblNewLabel_2_1.setBounds(44, 219, 60, 16);
 		contentPane.add(lblNewLabel_2_1);
 		
 		txtLogin = new JTextField();
 		txtLogin.setColumns(10);
-		txtLogin.setBounds(127, 230, 144, 19);
+		txtLogin.setBounds(127, 216, 144, 19);
 		contentPane.add(txtLogin);
 		
 		JLabel lblNewLabel_5 = new JLabel("Password");
@@ -133,30 +133,30 @@ public class FrmCrudUsuario extends JInternalFrame implements ActionListener, Mo
 		txtPassword.setColumns(10);
 		
 		JLabel lblNewLabel_6 = new JLabel("Correo");
-		lblNewLabel_6.setBounds(345, 114, 45, 13);
+		lblNewLabel_6.setBounds(381, 114, 45, 13);
 		contentPane.add(lblNewLabel_6);
 		
 		txtCorreo = new JTextField();
 		txtCorreo.setColumns(10);
-		txtCorreo.setBounds(436, 111, 121, 19);
+		txtCorreo.setBounds(467, 111, 121, 19);
 		contentPane.add(txtCorreo);
 		
 		JLabel lblNewLabel_8 = new JLabel("Fecha de Nacimiento");
-		lblNewLabel_8.setBounds(298, 156, 113, 13);
+		lblNewLabel_8.setBounds(325, 156, 113, 13);
 		getContentPane().add(lblNewLabel_8);
 		
 		txtNacimiento = new JTextField();
 		txtNacimiento.setColumns(10);
-		txtNacimiento.setBounds(436, 153, 121, 19);
+		txtNacimiento.setBounds(467, 153, 121, 19);
 		contentPane.add(txtNacimiento);
 		
 		JLabel lblNewLabel_9 = new JLabel("Direcci\u00F3n");
-		lblNewLabel_9.setBounds(345, 199, 55, 13);
+		lblNewLabel_9.setBounds(371, 199, 55, 13);
 		contentPane.add(lblNewLabel_9);
 		
 		txtDireccion = new JTextField();
 		txtDireccion.setColumns(10);
-		txtDireccion.setBounds(436, 196, 121, 19);
+		txtDireccion.setBounds(467, 196, 121, 19);
 		contentPane.add(txtDireccion);
 		
 		btnIngresar = new JButton("Ingresar");
@@ -175,16 +175,16 @@ public class FrmCrudUsuario extends JInternalFrame implements ActionListener, Mo
 		contentPane.add(btnEliminar);
 		
 		JLabel lblNewLabel_10 = new JLabel("Pa\u00EDs");
-		lblNewLabel_10.setBounds(345, 243, 38, 13);
+		lblNewLabel_10.setBounds(388, 233, 38, 13);
 		contentPane.add(lblNewLabel_10);
 		
 		cboPais = new JComboBox<String>();
-		cboPais.addItem("[Seleccione]");
+		cboPais.addItem("Seleccione");
 		cboPais.addItem("Perú");
 		cboPais.addItem("Chile");
 		cboPais.addItem("Argentina");
 		cboPais.addItem("Colombia");
-		cboPais.setBounds(436, 241, 123, 21);
+		cboPais.setBounds(465, 235, 123, 21);
 		contentPane.add(cboPais);
 		
 		JLabel lblNewLabel = new JLabel("Mantenimiento de Usuario");
@@ -202,7 +202,7 @@ public class FrmCrudUsuario extends JInternalFrame implements ActionListener, Mo
 			new Object[][] {
 			},
 			new String[] {
-				"Codigo", "Nombre", "Apellido", "DNI", "Login", "Password", "Correo","FechaNacimiento", "Direccion", "Pais"
+				"Código", "Nombre", "Apellido", "DNI", "Login", "Password", "Correo","FechaNacimiento", "Dirección", "País"
 			}
 		));
 		
