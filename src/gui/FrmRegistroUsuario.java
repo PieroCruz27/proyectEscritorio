@@ -130,8 +130,9 @@ public class FrmRegistroUsuario extends JInternalFrame implements ActionListener
 		
 		cboPais = new JComboBox<String>();
 		cboPais.addItem("[Seleccione]");
-		cboPais.addItem("[Chile]");
-		cboPais.addItem("[Argentina]");
+		cboPais.addItem("Perú");
+		cboPais.addItem("Chile");
+		cboPais.addItem("Argentina");
 		cboPais.addItem("Colombia");
 		cboPais.setBounds(168, 450, 113, 21);
 		getContentPane().add(cboPais);
