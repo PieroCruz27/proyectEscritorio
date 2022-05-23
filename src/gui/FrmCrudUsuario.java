@@ -274,7 +274,7 @@ public class FrmCrudUsuario extends JInternalFrame implements ActionListener, Mo
 		txtCorreo.setText("");
 		txtNacimiento.setText("");
 		txtDireccion.setText("");
-		cboPais.getSelectedItem().toString();
+		cboPais.setSelectedIndex(0);
 		txtNombre.requestFocus();
 	}
 	public void actionPerformed(ActionEvent e) {
