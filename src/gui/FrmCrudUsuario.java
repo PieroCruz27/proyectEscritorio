@@ -31,6 +31,7 @@ import entidad.Usuario;
 import model.UsuarioModel;
 import util.Conversiones;
 import util.Validaciones;
+import java.awt.Font;
 
 public class FrmCrudUsuario extends JInternalFrame implements ActionListener, MouseListener {
 
@@ -82,29 +83,30 @@ public class FrmCrudUsuario extends JInternalFrame implements ActionListener, Mo
 		setTitle("Mantenimiento de Usuario");
 		setBounds(100, 100, 900, 550);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.YELLOW);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre");
-		lblNewLabel_1.setBounds(72, 114, 45, 13);
+		lblNewLabel_1.setBounds(44, 103, 45, 13);
 		contentPane.add(lblNewLabel_1);
 		
 		txtNombre = new JTextField();
 		txtNombre.setColumns(10);
-		txtNombre.setBounds(127, 111, 144, 19);
+		txtNombre.setBounds(127, 100, 144, 19);
 		contentPane.add(txtNombre);
 		
 		JLabel lblNewLabel_2 = new JLabel("Apellidos");
-		lblNewLabel_2.setBounds(72, 156, 73, 13);
+		lblNewLabel_2.setBounds(44, 142, 70, 13);
 		contentPane.add(lblNewLabel_2);
 		
 		txtApellido = new JTextField();
 		txtApellido.setColumns(10);
-		txtApellido.setBounds(127, 153, 144, 19);
+		txtApellido.setBounds(127, 139, 144, 19);
 		contentPane.add(txtApellido);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("DNI");
-		lblNewLabel_1_1.setBounds(72, 183, 45, 13);
+		lblNewLabel_1_1.setBounds(44, 183, 45, 13);
 		contentPane.add(lblNewLabel_1_1);
 		
 		txtdni = new JTextField();
@@ -112,17 +114,17 @@ public class FrmCrudUsuario extends JInternalFrame implements ActionListener, Mo
 		txtdni.setBounds(127, 180, 144, 19);
 		contentPane.add(txtdni);
 		
-		JLabel lblNewLabel_2_1 = new JLabel("Loin");
-		lblNewLabel_2_1.setBounds(72, 225, 73, 13);
+		JLabel lblNewLabel_2_1 = new JLabel("Login");
+		lblNewLabel_2_1.setBounds(44, 219, 60, 16);
 		contentPane.add(lblNewLabel_2_1);
 		
 		txtLogin = new JTextField();
 		txtLogin.setColumns(10);
-		txtLogin.setBounds(127, 222, 144, 19);
+		txtLogin.setBounds(127, 216, 144, 19);
 		contentPane.add(txtLogin);
 		
 		JLabel lblNewLabel_5 = new JLabel("Password");
-		lblNewLabel_5.setBounds(72, 262, 45, 13);
+		lblNewLabel_5.setBounds(44, 262, 60, 13);
 		contentPane.add(lblNewLabel_5);
 		
 		txtPassword = new JTextField();
@@ -131,30 +133,30 @@ public class FrmCrudUsuario extends JInternalFrame implements ActionListener, Mo
 		txtPassword.setColumns(10);
 		
 		JLabel lblNewLabel_6 = new JLabel("Correo");
-		lblNewLabel_6.setBounds(369, 114, 45, 13);
+		lblNewLabel_6.setBounds(381, 114, 45, 13);
 		contentPane.add(lblNewLabel_6);
 		
 		txtCorreo = new JTextField();
 		txtCorreo.setColumns(10);
-		txtCorreo.setBounds(424, 111, 121, 19);
+		txtCorreo.setBounds(467, 111, 121, 19);
 		contentPane.add(txtCorreo);
 		
-		JLabel lblNewLabel_8 = new JLabel("Nacimiento");
-		lblNewLabel_8.setBounds(369, 156, 55, 13);
+		JLabel lblNewLabel_8 = new JLabel("Fecha de Nacimiento");
+		lblNewLabel_8.setBounds(325, 156, 113, 13);
 		getContentPane().add(lblNewLabel_8);
 		
 		txtNacimiento = new JTextField();
 		txtNacimiento.setColumns(10);
-		txtNacimiento.setBounds(424, 153, 121, 19);
+		txtNacimiento.setBounds(467, 153, 121, 19);
 		contentPane.add(txtNacimiento);
 		
-		JLabel lblNewLabel_9 = new JLabel("Direccion");
-		lblNewLabel_9.setBounds(369, 201, 55, 13);
+		JLabel lblNewLabel_9 = new JLabel("Direcci\u00F3n");
+		lblNewLabel_9.setBounds(371, 199, 55, 13);
 		contentPane.add(lblNewLabel_9);
 		
 		txtDireccion = new JTextField();
 		txtDireccion.setColumns(10);
-		txtDireccion.setBounds(424, 198, 121, 19);
+		txtDireccion.setBounds(467, 196, 121, 19);
 		contentPane.add(txtDireccion);
 		
 		btnIngresar = new JButton("Ingresar");
@@ -169,23 +171,25 @@ public class FrmCrudUsuario extends JInternalFrame implements ActionListener, Mo
 		
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(this);
-		btnEliminar.setBounds(686, 215, 85, 32);
+		btnEliminar.setBounds(686, 222, 85, 34);
 		contentPane.add(btnEliminar);
 		
-		JLabel lblNewLabel_10 = new JLabel("Pais");
-		lblNewLabel_10.setBounds(369, 245, 45, 13);
+		JLabel lblNewLabel_10 = new JLabel("Pa\u00EDs");
+		lblNewLabel_10.setBounds(388, 233, 38, 13);
 		contentPane.add(lblNewLabel_10);
 		
 		cboPais = new JComboBox<String>();
-		cboPais.addItem("[Seleccione]");
-		cboPais.addItem("[Chile]");
-		cboPais.addItem("[Argentina]");
+		cboPais.addItem("Seleccione");
+		cboPais.addItem("Perú");
+		cboPais.addItem("Chile");
+		cboPais.addItem("Argentina");
 		cboPais.addItem("Colombia");
-		cboPais.setBounds(422, 241, 123, 21);
+		cboPais.setBounds(465, 235, 123, 21);
 		contentPane.add(cboPais);
 		
-		JLabel lblNewLabel = new JLabel("Mantenimiento USUARIO");
-		lblNewLabel.setBounds(293, 41, 131, 13);
+		JLabel lblNewLabel = new JLabel("Mantenimiento de Usuario");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNewLabel.setBounds(298, 26, 290, 34);
 		contentPane.add(lblNewLabel);
 		
 		scrollPane = new JScrollPane();
@@ -198,7 +202,7 @@ public class FrmCrudUsuario extends JInternalFrame implements ActionListener, Mo
 			new Object[][] {
 			},
 			new String[] {
-				"IdUsuario", "Nombre", "Apellido", "DNI", "Login", "Password", "Correo","FechaNacimiento", "Direccion", "Pais"
+				"Código", "Nombre", "Apellido", "DNI", "Login", "Password", "Correo","FechaNacimiento", "Dirección", "País"
 			}
 		));
 		
@@ -210,14 +214,14 @@ public class FrmCrudUsuario extends JInternalFrame implements ActionListener, Mo
 				table.getColumnModel().getColumn(7).setCellRenderer(rightRenderer);
 		
 				//tamaño de la fila	
-				table.getColumnModel().getColumn(0).setPreferredWidth(20);
+				table.getColumnModel().getColumn(0).setPreferredWidth(50);
 				table.getColumnModel().getColumn(1).setPreferredWidth(80);
 				table.getColumnModel().getColumn(2).setPreferredWidth(80);
 				table.getColumnModel().getColumn(3).setPreferredWidth(80);
 				table.getColumnModel().getColumn(4).setPreferredWidth(80);
 				table.getColumnModel().getColumn(5).setPreferredWidth(80);
 				table.getColumnModel().getColumn(6).setPreferredWidth(100);
-				table.getColumnModel().getColumn(7).setPreferredWidth(80);
+				table.getColumnModel().getColumn(7).setPreferredWidth(100);
 				table.getColumnModel().getColumn(8).setPreferredWidth(80);
 				table.getColumnModel().getColumn(9).setPreferredWidth(70);
 				table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
