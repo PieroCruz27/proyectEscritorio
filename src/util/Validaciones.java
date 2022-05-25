@@ -3,6 +3,7 @@ package util;
 public class Validaciones {
 	public static final String TEXTO = "[a-zA-ZáéíóúñüÁÉÍÓÚÑÜ\\s]{3,30}";
 	public static final String DNI = "[0-9]{8}";
+	public static final String TELEFONO = "[0-9]{9}";
 	public static final String NUM_HIJOS = "[0-9]|[1][0]";
 	public static final String SUELDO = "(\\d+)|(\\d+[.]\\d{1,2})";
 	public static final String PREMIO = "(\\d+)|(\\d+[.]\\d{1})";
