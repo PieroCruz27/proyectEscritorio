@@ -129,7 +129,7 @@ public class FrmCrudProveedor extends JInternalFrame implements MouseListener, A
 		txtCorreo.setBounds(159, 250, 213, 20);
 		getContentPane().add(txtCorreo);
 		
-		lblPais = new JLabel("Pais");
+		lblPais = new JLabel("Pa\u00EDs");
 		lblPais.setBounds(35, 274, 100, 22);
 		getContentPane().add(lblPais);
 		
