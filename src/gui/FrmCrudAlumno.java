@@ -100,33 +100,33 @@ public class FrmCrudAlumno extends JInternalFrame implements ActionListener, Mou
 		
 		lblCorreo = new JLabel("Correo:");
 		lblCorreo.setFont(new Font("Dialog", Font.BOLD, 12));
-		lblCorreo.setBounds(471, 77, 115, 13);
+		lblCorreo.setBounds(433, 77, 115, 13);
 		getContentPane().add(lblCorreo);
 		
-		lblFechaDeNac = new JLabel("Fecha de nac. :");
+		lblFechaDeNac = new JLabel("Fecha de nacimiento :");
 		lblFechaDeNac.setFont(new Font("Dialog", Font.BOLD, 12));
-		lblFechaDeNac.setBounds(471, 124, 115, 13);
+		lblFechaDeNac.setBounds(433, 124, 153, 13);
 		getContentPane().add(lblFechaDeNac);
 		
 		lblPas = new JLabel("Pa\u00EDs:");
 		lblPas.setFont(new Font("Dialog", Font.BOLD, 12));
-		lblPas.setBounds(471, 182, 115, 13);
+		lblPas.setBounds(433, 182, 115, 13);
 		getContentPane().add(lblPas);
 		
 		txtNombre = new JTextField();
-		txtNombre.setBounds(151, 75, 292, 19);
+		txtNombre.setBounds(117, 77, 292, 19);
 		getContentPane().add(txtNombre);
 		txtNombre.setColumns(10);
 		
 		txtApellido = new JTextField();
 		txtApellido.setColumns(10);
-		txtApellido.setBounds(151, 122, 292, 19);
+		txtApellido.setBounds(117, 124, 292, 19);
 		getContentPane().add(txtApellido);
 		
 		txtDNI = new JTextField();
 		txtDNI.addKeyListener(this);
 		txtDNI.setColumns(10);
-		txtDNI.setBounds(151, 180, 115, 19);
+		txtDNI.setBounds(117, 182, 115, 19);
 		getContentPane().add(txtDNI);
 		
 		txtCorreo = new JTextField();
@@ -179,10 +179,18 @@ public class FrmCrudAlumno extends JInternalFrame implements ActionListener, Mou
 			new Object[][] {
 			},
 			new String[] {
-				"C\u00F3digo", "Nombres", "Apellidos", "DNI", "Correo", "Fecha Nac.", "Pa\u00EDs", "Fecha Act."
+				"C\u00F3digo", "Nombres", "Apellidos", "DNI", "Correo", "Fecha de nacimiento", "Pa\u00EDs"
 			}
 		));
-		table.setSurrendersFocusOnKeystroke(false);
+		table.getColumnModel().getColumn(0).setPreferredWidth(15);
+		table.getColumnModel().getColumn(1).setPreferredWidth(50);
+		table.getColumnModel().getColumn(2).setPreferredWidth(50);
+		table.getColumnModel().getColumn(3).setPreferredWidth(35);
+		table.getColumnModel().getColumn(4).setPreferredWidth(100);
+		table.getColumnModel().getColumn(5).setPreferredWidth(40);
+		table.getColumnModel().getColumn(6).setPreferredWidth(35);
+		
+		table.setSurrendersFocusOnKeystroke(true);
 		table.setRowSelectionAllowed(true);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setColumnSelectionAllowed(false);
@@ -192,19 +200,12 @@ public class FrmCrudAlumno extends JInternalFrame implements ActionListener, Mou
 		DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
 		rightRenderer.setHorizontalAlignment(JLabel.CENTER);
 		table.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
-		table.getColumnModel().getColumn(7).setCellRenderer(rightRenderer);
 		
-		table.getColumnModel().getColumn(0).setPreferredWidth(15);
-		table.getColumnModel().getColumn(1).setPreferredWidth(50);
-		table.getColumnModel().getColumn(2).setPreferredWidth(50);
-		table.getColumnModel().getColumn(3).setPreferredWidth(35);
-		table.getColumnModel().getColumn(4).setPreferredWidth(100);
-		table.getColumnModel().getColumn(5).setPreferredWidth(40);
-		table.getColumnModel().getColumn(6).setPreferredWidth(35);
-		table.getColumnModel().getColumn(7).setPreferredWidth(40);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		
 		table.getTableHeader().setReorderingAllowed(false);
+		
+		table.setDefaultEditor(Object.class, null);
 		
 		table.setSelectionBackground(Color.blue);
 		
@@ -388,9 +389,9 @@ public class FrmCrudAlumno extends JInternalFrame implements ActionListener, Mou
 		String correo = (String)table.getValueAt(fila, 4);
 		Date fechanac = (Date)table.getValueAt(fila, 5);
 		String pais = (String)table.getValueAt(fila, 6);
-		Date fechareg = (Date)table.getValueAt(fila, 7);
+
 		
-		System.out.println(idSeleccionado + " - " + nombre + " - " + apellido + " - " + dni + " - " + correo + " - " + fechanac + " - " + pais + " - " + fechareg);
+		System.out.println(idSeleccionado + " - " + nombre + " - " + apellido + " - " + dni + " - " + correo + " - " + fechanac + " - " + pais + " - ");
 		
 		txtNombre.setText(nombre);
 		txtApellido.setText(apellido);

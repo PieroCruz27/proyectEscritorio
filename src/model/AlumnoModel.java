@@ -104,7 +104,7 @@ public class AlumnoModel {
 		try {
 			cn = MySqlDBConexion.getConexion();
 			
-			String sql = "update alumno set nombres=?, apellidos=?, dni=?, pais=?, correo=?, fechaNacimiento=?, fechaRegistro=? where idAlumno=?";
+			String sql = "update alumno set nombres=?, apellidos=?, dni=?, pais=?, correo=?, fechaNacimiento=? where idAlumno=?";
 			prep = cn.prepareStatement(sql);
 			prep.setString(1, al.getNombre());
 			prep.setString(2, al.getApellido());
@@ -112,8 +112,7 @@ public class AlumnoModel {
 			prep.setString(4, al.getPais());
 			prep.setString(5, al.getCorreo());
 			prep.setDate(6, al.getFechanac());
-			prep.setDate(7, al.getFechareg());
-			prep.setInt(8, al.getIdAlumno());
+			prep.setInt(7, al.getIdAlumno());
 			
 			log.info(">> SQL >>" + prep);
 			
