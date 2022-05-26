@@ -182,7 +182,7 @@ public class FrmCrudAlumno extends JInternalFrame implements ActionListener, Mou
 				"C\u00F3digo", "Nombres", "Apellidos", "DNI", "Correo", "Fecha Nac.", "Pa\u00EDs", "Fecha Act."
 			}
 		));
-		table.setSurrendersFocusOnKeystroke(true);
+		table.setSurrendersFocusOnKeystroke(false);
 		table.setRowSelectionAllowed(true);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setColumnSelectionAllowed(false);
