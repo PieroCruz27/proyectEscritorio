@@ -2,6 +2,9 @@ package model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import entidad.Proveedor;
@@ -11,6 +14,8 @@ public class ProveedorModel {
 
 	private static Logger log = Logger.getLogger(ProveedorModel.class.getName());
 	
+	//Vamos a crear los metodos para el crud
+	//---------------INSERTAR----------------------
 	public int insertaProveedor(Proveedor obj) {
 		int salida = -1;
 		Connection conn= null;
@@ -45,5 +50,144 @@ public class ProveedorModel {
 		}
 		return salida;
 	}
-
+	//-----------------ACTUALIZAR-----------------
+	public int actualizarProveedor(Proveedor pProveedor) {
+		int salida=-1;
+		Connection con=null;
+		PreparedStatement pst=null;
+		try {
+			con=MySqlDBConexion.getConexion();
+			
+			String sql="update proveedor set nombres=?,apellidos=?,dni=?,direccion=?,telefono=?,correo=?,pais=? where idProveedor=?";
+			pst=con.prepareStatement(sql);
+			
+			pst.setString(1,pProveedor.getNombre());
+			pst.setString(2,pProveedor.getApellido());
+			pst.setString(3,pProveedor.getDni());
+			pst.setString(4,pProveedor.getDireccion());
+			pst.setString(5,pProveedor.getTelefono());
+			pst.setString(6,pProveedor.getCorreo());
+			pst.setString(7,pProveedor.getPais());
+			pst.setInt(8,pProveedor.getIdProveedor());
+			
+			log.info(">>>>"+pst);
+			salida=pst.executeUpdate();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pst !=null)pst.close();
+				if(con !=null)pst.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+		return salida;
+	}
+	//--------------------------------------------
+	
+	//-------------------ELIMINAR-----------------
+	public int elimnarProveedor(int idProveedor) {
+		int salida=-1;
+		Connection con=null;
+		PreparedStatement pst=null;
+		try {
+			//obtenemos la conexion
+			con=MySqlDBConexion.getConexion();
+			//creamos sentencia SQL
+			String sql="delete from proveedor where idProveedor=?";
+			pst=con.prepareStatement(sql);
+			pst.setInt(1,idProveedor);
+			
+			log.info(">>>>"+pst);
+			//Ejecutamos sentencia SQL
+			salida=pst.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pst !=null)pst.close();
+				if(con !=null)con.close();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return salida;
+	}
+	//--------------------------------------------
+	
+	//----------------LISTAR----------------------
+	public List<Proveedor> listarProveedor(){
+		ArrayList<Proveedor>listado = new ArrayList<Proveedor>();
+		Connection con = null;
+		PreparedStatement pst=null;
+		ResultSet rs=null;
+		
+		try {
+			con=MySqlDBConexion.getConexion();
+			String sql="select*from Proveedor";
+			pst=con.prepareStatement(sql);
+			
+			rs=pst.executeQuery();
+			Proveedor pProveedor=null;
+			while(rs.next()) {
+				pProveedor=new Proveedor();
+				pProveedor.setIdProveedor(rs.getInt(1));
+				pProveedor.setNombre(rs.getString(2));
+				pProveedor.setApellido(rs.getString(3));
+				pProveedor.setDni(rs.getString(4));
+				pProveedor.setDireccion(rs.getString(5));
+				pProveedor.setTelefono(rs.getString(6));
+				pProveedor.setCorreo(rs.getString(7));
+				pProveedor.setPais(rs.getString(8));
+				pProveedor.setFechaRegistro(rs.getDate(9));
+				listado.add(pProveedor);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(pst!=null)pst.close();
+				if(con!=null)con.close();
+				if(rs!=null)rs.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+			
+		}
+		
+		
+		return listado;
+	}
+	//--------------------------------------------
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

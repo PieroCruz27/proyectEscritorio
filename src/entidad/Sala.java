@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Sala {
 	
 	//Gonzales Ramirez
-	private int idSala;
+	private int idSala, estado;
 	private String numero;
 	private int piso;
 	private int numAlumnos;
@@ -19,6 +19,12 @@ public class Sala {
 	}
 	public void setIdSala(int idSala) {
 		this.idSala = idSala;
+	}
+	public int getestado() {
+		return estado;
+	}
+	public void setestado(int estado) {
+		this.estado = estado;
 	}
 	public String getNumero() {
 		return numero;
