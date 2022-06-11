@@ -13,7 +13,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class FrmConsultaAutor extends JInternalFrame {
+import entidad.Autor;
+import model.AutorModel;
+
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.awt.event.ActionEvent;
+
+public class FrmConsultaAutor extends JInternalFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JLabel lblTitulo;
@@ -22,7 +29,7 @@ public class FrmConsultaAutor extends JInternalFrame {
 	private JTextField txtNombres;
 	private JLabel lblApellido;
 	private JTextField txtApellidos;
-	private JTextField txtFechaNacimiento;
+	private JTextField txtFechaDesde;
 	private JLabel lblGrado;
 	private JLabel lblPais;
 	private JButton btnFiltrar;
@@ -30,6 +37,8 @@ public class FrmConsultaAutor extends JInternalFrame {
 	private JComboBox<String> cboGrado;
 	private JScrollPane scrollPane;
 	private JTable tblAutor;
+	private JLabel lblFechaNacimientoHasta;
+	private JTextField txtFechaHasta;
 
 	public FrmConsultaAutor() {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -50,59 +59,60 @@ public class FrmConsultaAutor extends JInternalFrame {
 		lblNombre.setBounds(38, 79, 105, 20);
 		getContentPane().add(lblNombre);
 		
-		lblFechaDeNacimiento = new JLabel("Fecha de nacimiento");
+		lblFechaDeNacimiento = new JLabel("Fecha de nacimiento desde");
 		lblFechaDeNacimiento.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblFechaDeNacimiento.setBounds(495, 125, 160, 20);
+		lblFechaDeNacimiento.setBounds(252, 125, 215, 20);
 		getContentPane().add(lblFechaDeNacimiento);
 		
 		txtNombres = new JTextField();
 		txtNombres.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtNombres.setBounds(125, 78, 230, 22);
+		txtNombres.setBounds(125, 78, 150, 22);
 		getContentPane().add(txtNombres);
 		txtNombres.setColumns(10);
 		
 		lblApellido = new JLabel("Apellidos");
 		lblApellido.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblApellido.setBounds(412, 79, 117, 20);
+		lblApellido.setBounds(307, 79, 91, 20);
 		getContentPane().add(lblApellido);
 		
 		txtApellidos = new JTextField();
 		txtApellidos.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtApellidos.setColumns(10);
-		txtApellidos.setBounds(558, 78, 230, 22);
+		txtApellidos.setBounds(408, 78, 150, 22);
 		getContentPane().add(txtApellidos);
 		
-		txtFechaNacimiento = new JTextField();
-		txtFechaNacimiento.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtFechaNacimiento.setColumns(10);
-		txtFechaNacimiento.setBounds(665, 124, 123, 22);
-		getContentPane().add(txtFechaNacimiento);
+		txtFechaDesde = new JTextField();
+		txtFechaDesde.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtFechaDesde.setColumns(10);
+		txtFechaDesde.setBounds(465, 124, 123, 22);
+		getContentPane().add(txtFechaDesde);
 		
 		lblGrado = new JLabel("Grado");
 		lblGrado.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblGrado.setBounds(269, 126, 61, 19);
+		lblGrado.setBounds(38, 126, 61, 19);
 		getContentPane().add(lblGrado);
 		
 		lblPais = new JLabel("Pa\u00EDs");
 		lblPais.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblPais.setBounds(38, 125, 61, 20);
+		lblPais.setBounds(587, 79, 61, 20);
 		getContentPane().add(lblPais);
 		
 		btnFiltrar = new JButton("Filtrar");
+		btnFiltrar.addActionListener(this);
 		btnFiltrar.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnFiltrar.setBounds(814, 88, 132, 47);
+		btnFiltrar.setBounds(814, 66, 132, 47);
 		getContentPane().add(btnFiltrar);
 		
 		cboPais = new JComboBox<String>();
 		cboPais.setModel(new DefaultComboBoxModel<String>(new String[] {"[Seleccione]", "Per\u00FA", "Chile", "Ecuador", "Colombia", "Argentina"}));
 		cboPais.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cboPais.setBounds(93, 123, 145, 25);
+		cboPais.setBounds(658, 74, 145, 25);
 		getContentPane().add(cboPais);
 		
 		cboGrado = new JComboBox<String>();
 		cboGrado.setModel(new DefaultComboBoxModel<String>(new String[] {"[Seleccione]", "T\u00E9cnico", "Licenciado", "Doctor", "Autor"}));
 		cboGrado.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cboGrado.setBounds(340, 123, 132, 25);
+		cboGrado.setBounds(97, 123, 132, 25);
 		getContentPane().add(cboGrado);
 		
 		scrollPane = new JScrollPane();
@@ -119,9 +129,45 @@ public class FrmConsultaAutor extends JInternalFrame {
 			}
 		));
 		scrollPane.setViewportView(tblAutor);
+		
+		lblFechaNacimientoHasta = new JLabel("Fecha de nacimiento hasta");
+		lblFechaNacimientoHasta.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblFechaNacimientoHasta.setBounds(609, 125, 204, 20);
+		getContentPane().add(lblFechaNacimientoHasta);
+		
+		txtFechaHasta = new JTextField();
+		txtFechaHasta.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtFechaHasta.setColumns(10);
+		txtFechaHasta.setBounds(823, 124, 123, 22);
+		getContentPane().add(txtFechaHasta);
 	}
 	
 	public void mensaje(String ms) {
 		JOptionPane.showMessageDialog(this, ms);
+	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnFiltrar) {
+			actionPerformedBtnFiltrar(e);
+		}
+	}
+	protected void actionPerformedBtnFiltrar(ActionEvent e) {
+		String nombres = txtNombres.getText();
+		String apellidos = txtApellidos.getText();
+		String fechaDesde = txtFechaDesde.getText();
+		String fechaHasta = txtFechaHasta.getText();
+		
+		AutorModel mAutor = new AutorModel();
+		List<Autor> listAutor = mAutor.ConsultaReporteAutor(nombres, apellidos, fechaDesde, fechaHasta);
+		
+		DefaultTableModel dt = (DefaultTableModel) tblAutor.getModel();
+		dt.setRowCount(0);
+		Object[] fila = null;
+		for(Autor autor: listAutor) {
+			fila = new Object[] {
+				autor.getIdAutor(), autor.getNombres(), autor.getApellidos(), autor.getFechaNacimiento(), autor.getPais(), autor.getGrado() 	
+			};
+			dt.addRow(fila);
+						
+		}
 	}
 }

@@ -177,4 +177,62 @@ public class AutorModel {
 		}
 		return listado;
 	}
+	
+	public List<Autor> ConsultaReporteAutor(String nombres, String apellidos, String fechaDesde, String fechaHasta){
+		ArrayList<Autor> listado = new ArrayList<Autor>();
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
+		try {
+			// Obtención de la conexión
+			con = MySqlDBConexion.getConexion();
+
+			// Creación de la sentencia SQL
+			String sql = "SELECT * FROM autor WHERE "
+					+ "(nombres LIKE ?) AND "
+					+ "(apellidos LIKE ?) AND "
+					+ "(?='' OR ?='' OR fechaNacimiento BETWEEN ? AND ?);";
+			pst = con.prepareStatement(sql);
+			pst.setString(1, "%" + nombres + "%");
+			pst.setString(2, "%" + apellidos + "%");
+			pst.setString(3, fechaDesde);
+			pst.setString(4, fechaHasta);
+			pst.setString(5, fechaDesde);
+			pst.setString(6, fechaHasta);
+			
+			System.out.println("SQL -->" + pst);
+			
+			//Ejecución del QUery
+			rs = pst.executeQuery();
+			
+			
+			// Ejecución de sentencia SQL en BD
+		
+			Autor oAutor = null;
+			while (rs.next()) {
+				oAutor = new Autor();
+				oAutor.setIdAutor(rs.getInt(1));
+				oAutor.setNombres(rs.getString(2));
+				oAutor.setApellidos(rs.getString(3));
+				oAutor.setFechaNacimiento(rs.getDate(4));
+				oAutor.setFechaRegistro(rs.getDate(5));
+				oAutor.setPais(rs.getString(6));
+				oAutor.setGrado(rs.getString(7));
+				listado.add(oAutor);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pst != null) pst.close();
+				if(con !=null) con.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		return listado;
+	}
 }
