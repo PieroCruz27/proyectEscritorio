@@ -5,7 +5,10 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Point;
+
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -16,8 +19,12 @@ import model.ProveedorModel;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class FrmConsultaProveedor extends JInternalFrame implements ActionListener {
 
@@ -44,8 +51,9 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 	private JButton btnBuscar;
 	private JLabel lblNewLabel_9;
 	private JTextField txtCorreo;
-
+	int hoveredRow=-1,hoveredColumn=-1;
 	public FrmConsultaProveedor() {
+		getContentPane().setBackground(new Color(153, 153, 255));
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setMaximizable(true);
 		setIconifiable(true);
@@ -55,8 +63,8 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 		getContentPane().setLayout(null);
 		
 		lblNewLabel = new JLabel("Consulta Proveedor");
-		lblNewLabel.setFont(new Font("Sylfaen", Font.BOLD, 20));
-		lblNewLabel.setBounds(354, 22, 207, 37);
+		lblNewLabel.setFont(new Font("Sylfaen", Font.BOLD, 24));
+		lblNewLabel.setBounds(354, 22, 259, 37);
 		getContentPane().add(lblNewLabel);
 		
 		lblNewLabel_1 = new JLabel("Nombres");
@@ -64,7 +72,7 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 		getContentPane().add(lblNewLabel_1);
 		
 		txtNombre = new JTextField();
-		txtNombre.setBounds(118, 115, 86, 20);
+		txtNombre.setBounds(118, 115, 140, 20);
 		getContentPane().add(txtNombre);
 		txtNombre.setColumns(10);
 		
@@ -74,7 +82,7 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 		
 		txtApellido = new JTextField();
 		txtApellido.setColumns(10);
-		txtApellido.setBounds(118, 140, 86, 20);
+		txtApellido.setBounds(118, 140, 140, 20);
 		getContentPane().add(txtApellido);
 		
 		lblNewLabel_3 = new JLabel("DNI");
@@ -83,52 +91,52 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 		
 		txtDni = new JTextField();
 		txtDni.setColumns(10);
-		txtDni.setBounds(118, 168, 86, 20);
+		txtDni.setBounds(118, 168, 140, 20);
 		getContentPane().add(txtDni);
 		
 		lblNewLabel_4 = new JLabel("Tel\u00E9fono");
-		lblNewLabel_4.setBounds(214, 143, 59, 14);
+		lblNewLabel_4.setBounds(268, 143, 59, 14);
 		getContentPane().add(lblNewLabel_4);
 		
 		txtTelefono = new JTextField();
 		txtTelefono.setColumns(10);
-		txtTelefono.setBounds(283, 140, 118, 20);
+		txtTelefono.setBounds(337, 140, 118, 20);
 		getContentPane().add(txtTelefono);
 		
 		lblNewLabel_5 = new JLabel("Direcci\u00F3n");
-		lblNewLabel_5.setBounds(214, 118, 69, 14);
+		lblNewLabel_5.setBounds(268, 118, 69, 14);
 		getContentPane().add(lblNewLabel_5);
 		
 		txtDireccion = new JTextField();
 		txtDireccion.setColumns(10);
-		txtDireccion.setBounds(283, 115, 118, 20);
+		txtDireccion.setBounds(337, 115, 169, 20);
 		getContentPane().add(txtDireccion);
 		
 		lblNewLabel_6 = new JLabel("Pa\u00EDs");
-		lblNewLabel_6.setBounds(214, 168, 46, 14);
+		lblNewLabel_6.setBounds(268, 168, 46, 14);
 		getContentPane().add(lblNewLabel_6);
 		
 		cboPais = new JComboBox();
 		cboPais.setModel(new DefaultComboBoxModel(new String[] {"", "Per\u00FA", "Chile", "Colombia", "Brazil"}));
-		cboPais.setBounds(283, 164, 118, 22);
+		cboPais.setBounds(337, 164, 118, 22);
 		getContentPane().add(cboPais);
 		
 		lblNewLabel_7 = new JLabel("Fecha de Inicio");
-		lblNewLabel_7.setBounds(440, 121, 110, 14);
+		lblNewLabel_7.setBounds(516, 121, 110, 14);
 		getContentPane().add(lblNewLabel_7);
 		
 		txtFecDesde = new JTextField();
 		txtFecDesde.setColumns(10);
-		txtFecDesde.setBounds(548, 118, 86, 20);
+		txtFecDesde.setBounds(624, 118, 110, 20);
 		getContentPane().add(txtFecDesde);
 		
 		lblNewLabel_8 = new JLabel("Fecha de Fin");
-		lblNewLabel_8.setBounds(440, 149, 110, 14);
+		lblNewLabel_8.setBounds(516, 149, 110, 14);
 		getContentPane().add(lblNewLabel_8);
 		
 		txtFecHasta = new JTextField();
 		txtFecHasta.setColumns(10);
-		txtFecHasta.setBounds(548, 146, 86, 20);
+		txtFecHasta.setBounds(624, 146, 110, 20);
 		getContentPane().add(txtFecHasta);
 		
 		scrollPane = new JScrollPane();
@@ -149,18 +157,53 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 		tblConsulta.getColumnModel().getColumn(8).setPreferredWidth(88);
 		scrollPane.setViewportView(tblConsulta);
 		
+		//selecciona una sola fila
+		tblConsulta.setRowSelectionAllowed(true);
+		tblConsulta.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		//desabilita mover las columnas
+		tblConsulta.getTableHeader().setReorderingAllowed(false);
+		
+		scrollPane.setViewportView(tblConsulta);
+		
+		//color de la fila seleccionada
+		tblConsulta.setSelectionBackground(Color.GREEN);
+		
+	    //No se pueda editar
+		tblConsulta.setDefaultEditor(Object.class, null);
+	    
+		//Efecto Rollover
+		tblConsulta.addMouseMotionListener(new MouseMotionListener() {
+	        @Override
+	        public void mouseMoved(MouseEvent e) {
+	            Point p = e.getPoint();
+	            hoveredRow = tblConsulta.rowAtPoint(p);
+	            hoveredColumn = tblConsulta.columnAtPoint(p);
+	            tblConsulta.setRowSelectionInterval(hoveredRow, hoveredRow);
+	            tblConsulta.repaint();    
+	        }
+	        @Override
+	        public void mouseDragged(MouseEvent e) {
+	            hoveredRow = hoveredColumn = -1;
+	            tblConsulta.repaint();
+	        }
+	    });
+		lista();
+		
 		btnBuscar = new JButton("Buscar");
+		btnBuscar.setFont(new Font("Arial", Font.BOLD, 15));
+		btnBuscar.setBackground(new Color(0, 153, 102));
 		btnBuscar.addActionListener(this);
 		btnBuscar.setBounds(799, 168, 145, 31);
 		getContentPane().add(btnBuscar);
 		
 		lblNewLabel_9 = new JLabel("Correo");
-		lblNewLabel_9.setBounds(440, 174, 110, 14);
+		lblNewLabel_9.setBounds(516, 174, 110, 14);
 		getContentPane().add(lblNewLabel_9);
 		
 		txtCorreo = new JTextField();
 		txtCorreo.setColumns(10);
-		txtCorreo.setBounds(548, 171, 86, 20);
+		txtCorreo.setBounds(624, 171, 110, 20);
 		getContentPane().add(txtCorreo);
 	}
 
@@ -192,10 +235,19 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 			fila=new Object[] {x.getIdProveedor(),x.getNombre(),x.getApellido(),x.getDni()
 					,x.getDireccion(),x.getTelefono(),x.getCorreo(),x.getPais(),x.getFechaRegistro()};
 			dtm.addRow(fila);
+		}	
+	}
+	
+	private void lista() {
+		ProveedorModel model= new ProveedorModel();
+		List<Proveedor> lista=model.listarProveedor();
+		DefaultTableModel dtm=(DefaultTableModel) tblConsulta.getModel();
+		dtm.setRowCount(0);
+		Object[] fila = null;
+		for (Proveedor x : lista) {
+			fila = new Object[] {x.getIdProveedor(), x.getNombre(), x.getApellido(),
+					x.getDni(), x.getDireccion(),x.getTelefono(),x.getCorreo(),x.getPais(),x.getFechaRegistro()};
+			dtm.addRow(fila);
 		}
-		
-	
-	
-	
 	}
 }

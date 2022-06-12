@@ -259,10 +259,7 @@ public class ProveedorModel {
 				if(rs!=null)	rs.close();
 				if(pstm!=null)pstm.close();
 				if(conn!=null)conn.close();
-				
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			} 
+			} catch (Exception e2) {} 
 		}return data;
 		
 		

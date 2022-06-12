@@ -11,10 +11,24 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
-import javax.swing.border.BevelBorder;
-import javax.swing.JScrollPane;
 
-public class FrmReporteProveedor extends JInternalFrame {
+import entidad.Proveedor;
+import model.ProveedorModel;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.swing.JRViewer;
+import util.GeneradorReporte;
+
+import javax.swing.border.BevelBorder;
+
+import javax.swing.DefaultComboBoxModel;
+import java.awt.Color;
+
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.awt.event.ActionEvent;
+
+public class FrmReporteProveedor extends JInternalFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JLabel lblReporteProveedor;
@@ -33,24 +47,26 @@ public class FrmReporteProveedor extends JInternalFrame {
 	private JLabel lblNewLabel_7;
 	private JTextField txtDni;
 	private JComboBox cboPais;
-	private JButton btnBuscar;
-	private JPanel panelReporte;
-	private JScrollPane scrollPane;
+	private JButton btnGenerar;
 	private JLabel lblNewLabel;
+	private JLabel lblNewLabel_8;
+	private JTextField txtCorreo;
+	private JPanel panelReporte;
 
 	public FrmReporteProveedor() {
+		getContentPane().setBackground(new Color(0, 153, 255));
 		getContentPane().setForeground(SystemColor.activeCaption);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setMaximizable(true);
 		setIconifiable(true);
 		setClosable(true);
 		setTitle("Reporte de Proveedor");
-		setBounds(100, 100, 1048, 615);
+		setBounds(100, 100, 1183, 615);
 		getContentPane().setLayout(null);
 		
 		lblReporteProveedor = new JLabel("Reporte Proveedor");
-		lblReporteProveedor.setFont(new Font("Sylfaen", Font.BOLD, 20));
-		lblReporteProveedor.setBounds(399, 11, 207, 37);
+		lblReporteProveedor.setFont(new Font("Sylfaen", Font.BOLD, 24));
+		lblReporteProveedor.setBounds(477, 11, 238, 37);
 		getContentPane().add(lblReporteProveedor);
 		
 		lblNewLabel_1 = new JLabel("Nombres");
@@ -59,25 +75,25 @@ public class FrmReporteProveedor extends JInternalFrame {
 		
 		txtNombre = new JTextField();
 		txtNombre.setColumns(10);
-		txtNombre.setBounds(163, 104, 86, 20);
+		txtNombre.setBounds(163, 104, 124, 20);
 		getContentPane().add(txtNombre);
 		
 		lblNewLabel_2 = new JLabel("Direcci\u00F3n");
-		lblNewLabel_2.setBounds(259, 107, 69, 14);
+		lblNewLabel_2.setBounds(313, 107, 69, 14);
 		getContentPane().add(lblNewLabel_2);
 		
 		txtDireccion = new JTextField();
 		txtDireccion.setColumns(10);
-		txtDireccion.setBounds(325, 104, 86, 20);
+		txtDireccion.setBounds(379, 104, 132, 20);
 		getContentPane().add(txtDireccion);
 		
 		lblNewLabel_3 = new JLabel("Fecha de Inicio");
-		lblNewLabel_3.setBounds(429, 107, 110, 14);
+		lblNewLabel_3.setBounds(521, 107, 110, 14);
 		getContentPane().add(lblNewLabel_3);
 		
 		txtFecDesde = new JTextField();
 		txtFecDesde.setColumns(10);
-		txtFecDesde.setBounds(537, 104, 86, 20);
+		txtFecDesde.setBounds(629, 104, 124, 20);
 		getContentPane().add(txtFecDesde);
 		
 		lblNewLabel_4 = new JLabel("Apellidos");
@@ -86,25 +102,25 @@ public class FrmReporteProveedor extends JInternalFrame {
 		
 		txtApellido = new JTextField();
 		txtApellido.setColumns(10);
-		txtApellido.setBounds(163, 129, 86, 20);
+		txtApellido.setBounds(163, 129, 124, 20);
 		getContentPane().add(txtApellido);
 		
 		lblNewLabel_5 = new JLabel("Tel\u00E9fono");
-		lblNewLabel_5.setBounds(259, 132, 59, 14);
+		lblNewLabel_5.setBounds(313, 132, 59, 14);
 		getContentPane().add(lblNewLabel_5);
 		
 		txtTelefono = new JTextField();
 		txtTelefono.setColumns(10);
-		txtTelefono.setBounds(325, 129, 86, 20);
+		txtTelefono.setBounds(379, 129, 132, 20);
 		getContentPane().add(txtTelefono);
 		
 		lblNewLabel_6 = new JLabel("Fecha de Fin");
-		lblNewLabel_6.setBounds(429, 135, 110, 14);
+		lblNewLabel_6.setBounds(521, 135, 110, 14);
 		getContentPane().add(lblNewLabel_6);
 		
 		txtFecHasta = new JTextField();
 		txtFecHasta.setColumns(10);
-		txtFecHasta.setBounds(537, 132, 86, 20);
+		txtFecHasta.setBounds(629, 132, 124, 20);
 		getContentPane().add(txtFecHasta);
 		
 		lblNewLabel_7 = new JLabel("DNI");
@@ -117,24 +133,68 @@ public class FrmReporteProveedor extends JInternalFrame {
 		getContentPane().add(txtDni);
 		
 		cboPais = new JComboBox();
-		cboPais.setBounds(325, 153, 86, 22);
+		cboPais.setModel(new DefaultComboBoxModel(new String[] {"", "Per\u00FA", "Chile", "Colombia", "Brazil"}));
+		cboPais.setBounds(379, 153, 132, 22);
 		getContentPane().add(cboPais);
 		
-		btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(657, 157, 145, 31);
-		getContentPane().add(btnBuscar);
-		
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 206, 1012, 368);
-		getContentPane().add(scrollPane);
+		btnGenerar = new JButton("Generar");
+		btnGenerar.addActionListener(this);
+		btnGenerar.setFont(new Font("Arial", Font.BOLD, 13));
+		btnGenerar.setForeground(Color.WHITE);
+		btnGenerar.setBackground(new Color(102, 0, 51));
+		btnGenerar.setBounds(838, 164, 145, 31);
+		getContentPane().add(btnGenerar);
 		
 		panelReporte = new JPanel();
-		scrollPane.setViewportView(panelReporte);
 		panelReporte.setBorder(new TitledBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null), "Reporte", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		panelReporte.setBackground(new Color(102, 153, 255));
+		panelReporte.setBounds(10, 208, 1145, 366);
+		getContentPane().add(panelReporte);
 		
 		lblNewLabel = new JLabel("Pa\u00EDs");
-		lblNewLabel.setBounds(259, 157, 46, 14);
+		lblNewLabel.setBounds(313, 157, 46, 14);
 		getContentPane().add(lblNewLabel);
+		
+		lblNewLabel_8 = new JLabel("Correo");
+		lblNewLabel_8.setBounds(521, 160, 110, 14);
+		getContentPane().add(lblNewLabel_8);
+		
+		txtCorreo = new JTextField();
+		txtCorreo.setColumns(10);
+		txtCorreo.setBounds(629, 157, 86, 20);
+		getContentPane().add(txtCorreo);
 
+	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnGenerar) {
+			actionPerformedBtnGenerar(e);
+		}
+	}
+	protected void actionPerformedBtnGenerar(ActionEvent e) {
+		String nom=txtNombre.getText();
+		String ape=txtApellido.getText();
+		String dni=txtDni.getText();
+		String dir=txtDireccion.getText();
+		String tel=txtTelefono.getText();
+		String cor=txtCorreo.getText();
+		String pais=cboPais.getSelectedItem().toString();
+		String fecIni=txtFecDesde.getText();
+		String fecFin=txtFecHasta.getText();
+		
+		ProveedorModel model = new ProveedorModel();
+		List<Proveedor> lstProveedor = model.consultaValores(nom, ape, dni, dir, tel, cor, pais, fecIni, fecFin);
+		
+		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(lstProveedor);
+		
+		String reporte ="Reporte_Proveedor.jasper";
+		
+		JasperPrint print = GeneradorReporte.genera(reporte, dataSource, null);
+		
+		JRViewer jasperViewer = new JRViewer(print);
+		panelReporte.removeAll();
+		panelReporte.add(jasperViewer);
+		panelReporte.repaint();
+		panelReporte.revalidate();
+		
 	}
 }
