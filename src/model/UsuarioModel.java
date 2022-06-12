@@ -294,4 +294,68 @@ public class UsuarioModel {
 		return data;
 		}
 	
+	public List<Usuario> consultaPorNombreDNIFecha(String nombre,String apellido,String dni , String desde, String hasta){
+		ArrayList<Usuario> salida =new ArrayList<Usuario>();
+		
+		Connection conn = null;
+		PreparedStatement pstm = null;
+		//recepciona data
+		ResultSet rs = null;
+		
+		try {
+			//1 se crea la conexion
+			conn = MySqlDBConexion.getConexion();
+			
+			//2 se prepara el sql 
+			String sql = "SELECT * FROM sistema_biblioteca_simple_2022_01.usuario "
+					+ " WHERE ( nombre LIKE ?) and ( apellido LIKE ?) and "
+					+ " (? =  '' or dni = ?) "
+					+ "and (? = '' or ? = '' or "
+					+ "fechaNacimiento between ? and ? ); ";
+		 pstm = conn.prepareStatement(sql);
+		 pstm.setString(1,  "%"+nombre+"%");
+		 pstm.setString(2,  "%"+apellido+"%");
+		 pstm.setString(3, dni);
+		 pstm.setString(4, dni);
+		 pstm.setString(5, desde);
+		 pstm.setString(6, hasta);
+		 pstm.setString(7, desde);
+		 pstm.setString(8, hasta);
+		 
+			System.out.println("SQL --> " + pstm);
+		 
+		 //se ejecuta el sql en la base de datos
+		 rs = pstm.executeQuery();
+		 Usuario obj = null;
+		 
+		 while(rs.next()) {
+			 obj = new Usuario();
+			 obj = new Usuario();
+			 obj.setIdUsuario(rs.getInt(1));
+			 obj.setNombre(rs.getString(2));
+			 obj.setApellido(rs.getString(3));
+			 obj.setDni(rs.getString(4));
+			 obj.setLogin(rs.getString(5));
+			 obj.setPassword(rs.getString(6));
+			 obj.setCorreo(rs.getString(7));
+			 obj.setFechaNacimiento(rs.getDate(9));
+			 obj.setDireccion(rs.getString(10));
+			 obj.setPais(rs.getString(11));
+			 salida.add(obj);
+			 
+		 }
+		 
+		 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				if (rs !=null) rs.close();
+				if (pstm !=null) pstm.close();
+				if (conn !=null) conn.close();
+			} catch (Exception e2) {    }	
+		}
+		return salida;
+		}
+	
 }
