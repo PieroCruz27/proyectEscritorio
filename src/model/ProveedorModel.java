@@ -221,7 +221,7 @@ public class ProveedorModel {
 					+"and telefono like ? "
 					+"and correo like ? "
 					+"and (?='' or pais like ? )"
-					+"and (?='' or ?='' or "
+					+"and (?='' or ?='' or " 
 					+"fechaRegistro between ? and ?); ";
 			pstm=conn.prepareStatement(sql);
 			pstm.setString(1, "%"+nombres+"%");
