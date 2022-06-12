@@ -165,6 +165,115 @@ public class ProveedorModel {
 		return listado;
 	}
 	//--------------------------------------------
+	public List<Proveedor> consultaPorFecha(String desde,String hasta){
+		ArrayList<Proveedor> data= new ArrayList<Proveedor>();
+		Connection conn=null;
+		PreparedStatement pstm=null;
+		ResultSet rs = null;
+		try {
+			conn=MySqlDBConexion.getConexion();
+			String sql = "select*from Proveedor where fechaRegistro between ? and ?";
+			pstm=conn.prepareStatement(sql);
+			pstm.setString(1, desde);
+			pstm.setString(2,hasta);
+			System.out.println("SQL-->"+pstm);
+			rs= pstm.executeQuery();
+			Proveedor obj = null;
+			while(rs.next()) {
+				obj= new Proveedor();
+				obj.setIdProveedor(rs.getInt("idProveedor"));
+				obj.setNombre(rs.getString("nombres"));
+				obj.setApellido(rs.getString("apellidos"));
+				obj.setDni(rs.getString("dni"));
+				obj.setDireccion(rs.getString("direccion"));
+				obj.setTelefono(rs.getString("telefono"));
+				obj.setCorreo(rs.getString("correo"));
+				obj.setPais(rs.getString("pais"));
+				obj.setFechaRegistro(rs.getDate("fechaRegistro"));
+				data.add(obj);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+			if(rs!=null)rs.close();
+			if(pstm!=null)pstm.close();
+			if(conn!=null)conn.close();
+			}catch(Exception e2) {
+				e2.printStackTrace();
+			}
+		}return data;
+	}
+	//--------------------------SEGUNDA CONSULTA----------------------
+	public List<Proveedor> consultaValores(String nombres,String apellidos,String dni
+			,String direccion,String telefono,String correo,String pais, String desde,String hasta ){
+		ArrayList<Proveedor> data= new ArrayList<Proveedor>();
+		Connection conn=null;
+		PreparedStatement pstm=null;
+		ResultSet rs=null;
+		try {
+			conn=MySqlDBConexion.getConexion();
+			String sql="Select* from sistema_biblioteca_simple_2022_01.proveedor "
+					+"where nombres like ? "
+					+"and apellidos like ? "
+					+"and(?='' or dni=?) "
+					+"and direccion like ? "
+					+"and telefono like ? "
+					+"and correo like ? "
+					+"and (?='' or pais like ? )"
+					+"and (?='' or ?='' or "
+					+"fechaRegistro between ? and ?); ";
+			pstm=conn.prepareStatement(sql);
+			pstm.setString(1, "%"+nombres+"%");
+			pstm.setString(2,"%"+apellidos+"%");
+			pstm.setString(3,dni);
+			pstm.setString(4,dni);
+			pstm.setString(5, "%"+direccion+"%");
+			pstm.setString(6, "%"+telefono+"%");
+			pstm.setString(7, "%"+correo+"%");
+			pstm.setString(8, pais);
+			pstm.setString(9, "%"+pais+"%");
+			pstm.setString(10, desde);
+			pstm.setString(11, hasta);
+			pstm.setString(12, desde);
+			pstm.setString(13, hasta);
+			System.out.println("SQL.--->"+pstm);
+			rs=pstm.executeQuery();
+			Proveedor obj = null;
+			while(rs.next()) {
+				obj=new Proveedor();
+				obj.setIdProveedor(rs.getInt("idProveedor"));
+				obj.setNombre(rs.getString("nombres"));
+				obj.setApellido(rs.getString("apellidos"));
+				obj.setDni(rs.getString("dni"));
+				obj.setDireccion(rs.getString("direccion"));
+				obj.setTelefono(rs.getString("telefono"));
+				obj.setCorreo(rs.getString("Correo"));
+				obj.setPais(rs.getString("Pais"));
+				obj.setFechaRegistro(rs.getDate("fechaRegistro"));
+				data.add(obj);
+			}
+			
+		}catch(Exception e) {e.printStackTrace();}finally {
+			try {
+				if(rs!=null)	rs.close();
+				if(pstm!=null)pstm.close();
+				if(conn!=null)conn.close();
+				
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			} 
+		}return data;
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 }
 

@@ -128,8 +128,7 @@ public class FrmCrudProveedor extends JInternalFrame implements MouseListener, A
 		getContentPane().add(lblPais);
 		
 		cboPais = new JComboBox<String>();
-		cboPais.setModel(new DefaultComboBoxModel<String>(
-				new String[] {"[Seleccione]","Perú","Chile","Colombia","Brazil"}));
+		cboPais.setModel(new DefaultComboBoxModel(new String[] {"[Seleccione]", "Per\u00FA", "Chile", "Colombia", "Brazil"}));
 		
 		cboPais.setBounds(159, 274, 213, 22);
 		getContentPane().add(cboPais);
