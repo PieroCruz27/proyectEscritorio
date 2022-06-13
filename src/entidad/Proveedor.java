@@ -4,8 +4,8 @@ import java.sql.Date;
 
 public class Proveedor {
   private int idProveedor ;
-  private String nombres;
-  private String apellidos;
+  private String nombre;
+  private String apellido;
   private String dni;
   private String direccion;
   private String telefono;
@@ -21,16 +21,16 @@ public void setIdProveedor(int idProveedor) {
 	this.idProveedor = idProveedor;
 }
 public String getNombre() {
-	return nombres;
+	return nombre;
 }
 public void setNombre(String nombre) {
-	this.nombres = nombre;
+	this.nombre = nombre;
 }
 public String getApellido() {
-	return apellidos;
+	return apellido;
 }
 public void setApellido(String apellido) {
-	this.apellidos = apellido;
+	this.apellido = apellido;
 }
 public String getDni() {
 	return dni;

@@ -27,6 +27,14 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.awt.event.ActionEvent;
+import java.awt.FlowLayout;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+import java.awt.BorderLayout;
 
 public class FrmReporteProveedor extends JInternalFrame implements ActionListener {
 
@@ -61,7 +69,7 @@ public class FrmReporteProveedor extends JInternalFrame implements ActionListene
 		setIconifiable(true);
 		setClosable(true);
 		setTitle("Reporte de Proveedor");
-		setBounds(100, 100, 1183, 615);
+		setBounds(100, 100, 1183, 767);
 		getContentPane().setLayout(null);
 		
 		lblReporteProveedor = new JLabel("Reporte Proveedor");
@@ -145,12 +153,6 @@ public class FrmReporteProveedor extends JInternalFrame implements ActionListene
 		btnGenerar.setBounds(838, 164, 145, 31);
 		getContentPane().add(btnGenerar);
 		
-		panelReporte = new JPanel();
-		panelReporte.setBorder(new TitledBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null), "Reporte", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		panelReporte.setBackground(new Color(102, 153, 255));
-		panelReporte.setBounds(10, 208, 1145, 366);
-		getContentPane().add(panelReporte);
-		
 		lblNewLabel = new JLabel("Pa\u00EDs");
 		lblNewLabel.setBounds(313, 157, 46, 14);
 		getContentPane().add(lblNewLabel);
@@ -163,6 +165,13 @@ public class FrmReporteProveedor extends JInternalFrame implements ActionListene
 		txtCorreo.setColumns(10);
 		txtCorreo.setBounds(629, 157, 86, 20);
 		getContentPane().add(txtCorreo);
+		
+		panelReporte = new JPanel();
+		panelReporte.setBorder(new TitledBorder(null, "Reporte", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelReporte.setBackground(new Color(102, 153, 255));
+		panelReporte.setBounds(10, 219, 1147, 507);
+		getContentPane().add(panelReporte);
+		panelReporte.setLayout(new BorderLayout(0, 0));
 
 	}
 	public void actionPerformed(ActionEvent e) {
@@ -186,9 +195,9 @@ public class FrmReporteProveedor extends JInternalFrame implements ActionListene
 		
 		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(lstProveedor);
 		
-		String reporte ="Reporte_Proveedor.jasper";
+		String reporte ="Proveedor.jasper";
 		
-		JasperPrint print = GeneradorReporte.genera(reporte, dataSource, null);
+		JasperPrint print = GeneradorReporte.genera(reporte, dataSource,null);
 		
 		JRViewer jasperViewer = new JRViewer(print);
 		panelReporte.removeAll();
