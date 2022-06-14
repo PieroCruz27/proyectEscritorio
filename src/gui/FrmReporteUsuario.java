@@ -102,13 +102,14 @@ public class FrmReporteUsuario extends JInternalFrame implements ActionListener 
 		getContentPane().add(txtApellidos);
 		
 		btnFiltrar = new JButton("Filtrar");
+		btnFiltrar.setFont(new Font("Arial Black", Font.ITALIC, 24));
 		btnFiltrar.addActionListener(this);
-		btnFiltrar.setBounds(776, 172, 162, 40);
+		btnFiltrar.setBounds(879, 153, 162, 59);
 		getContentPane().add(btnFiltrar);
 		
 		panelReporte = new JPanel();
 		panelReporte.setBorder(new TitledBorder(null, "Reportes", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		panelReporte.setBounds(26, 237, 951, 259);
+		panelReporte.setBounds(26, 237, 1099, 259);
 		getContentPane().add(panelReporte);
 		panelReporte.setLayout(new BorderLayout());
 
