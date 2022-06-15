@@ -1,21 +1,32 @@
 package gui;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
+import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
-import java.awt.Color;
+import javax.swing.border.TitledBorder;
 
-public class FrmReporteAutor extends JInternalFrame {
+import entidad.Autor;
+import model.AutorModel;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.swing.JRViewer;
+import util.GeneradorReporte;
+import java.awt.BorderLayout;
+
+public class FrmReporteAutor extends JInternalFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JLabel lblPais;
@@ -30,7 +41,7 @@ public class FrmReporteAutor extends JInternalFrame {
 	private JTextField txtFechaDesde;
 	private JLabel lblReporteDeAutor;
 	private JButton btnFiltrar;
-	private JPanel panel;
+	private JPanel pnlReporte;
 	private JLabel lblFechaNacimientoHasta;
 	private JTextField txtFechaHasta;
 	private JButton btnLimpiar;
@@ -100,14 +111,16 @@ public class FrmReporteAutor extends JInternalFrame {
 		getContentPane().add(lblReporteDeAutor);
 		
 		btnFiltrar = new JButton("Filtrar");
+		btnFiltrar.addActionListener(this);
 		btnFiltrar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnFiltrar.setBounds(902, 58, 159, 38);
 		getContentPane().add(btnFiltrar);
 		
-		panel = new JPanel();
-		panel.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Reporte", TitledBorder.CENTER, TitledBorder.ABOVE_TOP, null, new Color(0, 0, 0)));
-		panel.setBounds(69, 175, 1051, 317);
-		getContentPane().add(panel);
+		pnlReporte = new JPanel();
+		pnlReporte.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Reporte", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		pnlReporte.setBounds(69, 175, 1051, 317);
+		getContentPane().add(pnlReporte);
+		pnlReporte.setLayout(new BorderLayout(0, 0));
 		
 		lblFechaNacimientoHasta = new JLabel("Fecha de nacimiento hasta");
 		lblFechaNacimientoHasta.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -121,6 +134,7 @@ public class FrmReporteAutor extends JInternalFrame {
 		getContentPane().add(txtFechaHasta);
 		
 		btnLimpiar = new JButton("Limpiar filtros");
+		btnLimpiar.addActionListener(this);
 		btnLimpiar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnLimpiar.setBounds(902, 115, 159, 38);
 		getContentPane().add(btnLimpiar);
@@ -131,5 +145,53 @@ public class FrmReporteAutor extends JInternalFrame {
 		setTitle("Reporte de Autor");
 		setBounds(100, 100, 1200, 550);
 
+	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnLimpiar) {
+			actionPerformedBtnLimpiar(e);
+		}
+		if (e.getSource() == btnFiltrar) {
+			actionPerformedBtnFiltrar(e);
+		}
+	}
+	protected void actionPerformedBtnFiltrar(ActionEvent e) {
+		String nombresUI = txtNombres.getText();
+		String apellidosUI = txtApellidos.getText();
+		String fechaDesdeUI = txtFechaDesde.getText();
+		String fechaHastaUI = txtFechaHasta.getText();
+		String paisUI = cboPais.getSelectedItem().toString();
+		String gradoUI = cboGrado.getSelectedItem().toString();
+		if(paisUI != "[Seleccione]") {
+			paisUI = cboPais.getSelectedItem().toString();
+		}else {paisUI = "";}
+		if(gradoUI != "[Seleccione]") {
+			gradoUI = cboGrado.getSelectedItem().toString();
+		}else {gradoUI = "";}
+		
+		AutorModel mAutor = new AutorModel();
+		List<Autor> listAutor = mAutor.ConsultaReporteAutor(nombresUI, apellidosUI, fechaDesdeUI, fechaHastaUI, paisUI, gradoUI);
+		
+		JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listAutor);
+		String jasper = "reporteAutor.jasper";
+		JasperPrint print = GeneradorReporte.genera(jasper, dataSource, null);
+		
+		JRViewer visor = new JRViewer(print);
+		
+		pnlReporte.removeAll();
+		pnlReporte.add(visor);
+		pnlReporte.repaint();
+		pnlReporte.revalidate();
+	}
+	protected void actionPerformedBtnLimpiar(ActionEvent e) {
+		txtNombres.setText("");
+		txtApellidos.setText("");
+		txtFechaDesde.setText("");
+		txtFechaHasta.setText("");
+		cboPais.setSelectedIndex(0);
+		cboGrado.setSelectedIndex(0);
+		txtNombres.requestFocus();
+		pnlReporte.removeAll();
+		pnlReporte.repaint();
+		pnlReporte.revalidate();
 	}
 }
