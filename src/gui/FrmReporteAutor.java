@@ -49,6 +49,12 @@ public class FrmReporteAutor extends JInternalFrame implements ActionListener {
 	public FrmReporteAutor() {
 		getContentPane().setForeground(SystemColor.activeCaption);
 		getContentPane().setLayout(null);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setMaximizable(true);
+		setIconifiable(true);
+		setClosable(true);
+		setTitle("Reporte de Autor");
+		setBounds(100, 100, 1200, 550);
 		
 		lblPais = new JLabel("Pa\u00EDs");
 		lblPais.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -118,7 +124,7 @@ public class FrmReporteAutor extends JInternalFrame implements ActionListener {
 		
 		pnlReporte = new JPanel();
 		pnlReporte.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Reporte", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		pnlReporte.setBounds(69, 175, 1051, 317);
+		pnlReporte.setBounds(111, 175, 950, 317);
 		getContentPane().add(pnlReporte);
 		pnlReporte.setLayout(new BorderLayout(0, 0));
 		
@@ -138,12 +144,7 @@ public class FrmReporteAutor extends JInternalFrame implements ActionListener {
 		btnLimpiar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnLimpiar.setBounds(902, 115, 159, 38);
 		getContentPane().add(btnLimpiar);
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setMaximizable(true);
-		setIconifiable(true);
-		setClosable(true);
-		setTitle("Reporte de Autor");
-		setBounds(100, 100, 1200, 550);
+
 
 	}
 	public void actionPerformed(ActionEvent e) {
