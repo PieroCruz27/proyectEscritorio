@@ -54,7 +54,7 @@ public class FrmReporteAutor extends JInternalFrame implements ActionListener {
 		setIconifiable(true);
 		setClosable(true);
 		setTitle("Reporte de Autor");
-		setBounds(100, 100, 1200, 550);
+		setBounds(100, 100, 1200, 600);
 		
 		lblPais = new JLabel("Pa\u00EDs");
 		lblPais.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -124,7 +124,7 @@ public class FrmReporteAutor extends JInternalFrame implements ActionListener {
 		
 		pnlReporte = new JPanel();
 		pnlReporte.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Reporte", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		pnlReporte.setBounds(111, 175, 950, 317);
+		pnlReporte.setBounds(52, 175, 1089, 366);
 		getContentPane().add(pnlReporte);
 		pnlReporte.setLayout(new BorderLayout(0, 0));
 		
