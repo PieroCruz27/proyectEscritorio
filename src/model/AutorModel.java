@@ -178,7 +178,7 @@ public class AutorModel {
 		return listado;
 	}
 	
-	public List<Autor> ConsultaReporteAutor(String nombres, String apellidos, String fechaDesde, String fechaHasta){
+	public List<Autor> ConsultaReporteAutor(String nombres, String apellidos, String fechaDesde, String fechaHasta, String pais, String grado){
 		ArrayList<Autor> listado = new ArrayList<Autor>();
 		Connection con = null;
 		PreparedStatement pst = null;
@@ -192,7 +192,9 @@ public class AutorModel {
 			String sql = "SELECT * FROM autor WHERE "
 					+ "(nombres LIKE ?) AND "
 					+ "(apellidos LIKE ?) AND "
-					+ "(?='' OR ?='' OR fechaNacimiento BETWEEN ? AND ?);";
+					+ "(?='' OR ?='' OR fechaNacimiento BETWEEN ? AND ?) AND "
+					+ "(? = '' OR pais=?) AND "
+					+ "(? = '' OR grado=?);";
 			pst = con.prepareStatement(sql);
 			pst.setString(1, "%" + nombres + "%");
 			pst.setString(2, "%" + apellidos + "%");
@@ -200,6 +202,10 @@ public class AutorModel {
 			pst.setString(4, fechaHasta);
 			pst.setString(5, fechaDesde);
 			pst.setString(6, fechaHasta);
+			pst.setString(7, pais);
+			pst.setString(8, pais);
+			pst.setString(9, grado);
+			pst.setString(10, grado);
 			
 			System.out.println("SQL -->" + pst);
 			
