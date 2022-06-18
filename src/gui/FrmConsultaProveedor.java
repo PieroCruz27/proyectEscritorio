@@ -16,11 +16,14 @@ import javax.swing.table.DefaultTableModel;
 import java.util.List;
 import entidad.Proveedor;
 import model.ProveedorModel;
+import util.Excel;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Color;
@@ -52,6 +55,7 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 	private JLabel lblNewLabel_9;
 	private JTextField txtCorreo;
 	int hoveredRow=-1,hoveredColumn=-1;
+	private JButton btnExportar;
 	public FrmConsultaProveedor() {
 		getContentPane().setBackground(new Color(153, 153, 255));
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -194,7 +198,7 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 		btnBuscar.setFont(new Font("Arial", Font.BOLD, 15));
 		btnBuscar.setBackground(new Color(0, 153, 102));
 		btnBuscar.addActionListener(this);
-		btnBuscar.setBounds(799, 168, 145, 31);
+		btnBuscar.setBounds(786, 109, 145, 31);
 		getContentPane().add(btnBuscar);
 		
 		lblNewLabel_9 = new JLabel("Correo");
@@ -205,12 +209,27 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 		txtCorreo.setColumns(10);
 		txtCorreo.setBounds(624, 171, 110, 20);
 		getContentPane().add(txtCorreo);
+		
+		btnExportar = new JButton("Exportar");
+		btnExportar.addActionListener(this);
+		btnExportar.setFont(new Font("Arial", Font.BOLD, 15));
+		btnExportar.setBackground(new Color(0, 153, 102));
+		btnExportar.setBounds(786, 151, 145, 31);
+		getContentPane().add(btnExportar);
 	}
 
 	public void mensaje(String ms) {
 		JOptionPane.showMessageDialog(this, ms);
 	}
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnExportar) {
+			try {
+				actionPerformedBtnExportar(e);
+			} catch (IOException | SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 		if (e.getSource() == btnBuscar) {
 			actionPerformedBtnBuscar(e);
 		}
@@ -249,5 +268,10 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 					x.getDni(), x.getDireccion(),x.getTelefono(),x.getCorreo(),x.getPais(),x.getFechaRegistro()};
 			dtm.addRow(fila);
 		}
+	}
+	protected void actionPerformedBtnExportar(ActionEvent e) throws IOException, SQLException {
+		Excel rp = new Excel();
+		rp.Reporte();
+		
 	}
 }
