@@ -1,33 +1,32 @@
 package gui;
 
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JLabel;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
-
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.JComboBox;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import java.util.List;
-import entidad.Proveedor;
-import model.ProveedorModel;
-import util.Excel;
-
-import javax.swing.JButton;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.awt.event.ActionEvent;
+import java.util.List;
+
 import javax.swing.DefaultComboBoxModel;
-import java.awt.Color;
-import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+
+import entidad.Proveedor;
+import model.ProveedorModel;
+import util.Excel;
 
 public class FrmConsultaProveedor extends JInternalFrame implements ActionListener {
 
@@ -44,7 +43,7 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 	private JLabel lblNewLabel_5;
 	private JTextField txtDireccion;
 	private JLabel lblNewLabel_6;
-	private JComboBox cboPais;
+	private JComboBox<String> cboPais;
 	private JLabel lblNewLabel_7;
 	private JTextField txtFecDesde;
 	private JLabel lblNewLabel_8;
@@ -120,8 +119,8 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 		lblNewLabel_6.setBounds(268, 168, 46, 14);
 		getContentPane().add(lblNewLabel_6);
 		
-		cboPais = new JComboBox();
-		cboPais.setModel(new DefaultComboBoxModel(new String[] {"", "Per\u00FA", "Chile", "Colombia", "Brazil"}));
+		cboPais = new JComboBox<String>();
+		cboPais.setModel(new DefaultComboBoxModel<String>(new String[] {"", "Per\u00FA", "Chile", "Colombia", "Brazil"}));
 		cboPais.setBounds(337, 164, 118, 22);
 		getContentPane().add(cboPais);
 		
@@ -271,7 +270,7 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 	}
 	protected void actionPerformedBtnExportar(ActionEvent e) throws IOException, SQLException {
 		Excel rp = new Excel();
-		rp.Reporte();
+		rp.verReporte();
 		
 	}
 }

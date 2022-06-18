@@ -1,15 +1,21 @@
 package gui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import entidad.Proveedor;
@@ -18,23 +24,6 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.swing.JRViewer;
 import util.GeneradorReporte;
-
-import javax.swing.border.BevelBorder;
-
-import javax.swing.DefaultComboBoxModel;
-import java.awt.Color;
-
-import java.awt.event.ActionListener;
-import java.util.List;
-import java.awt.event.ActionEvent;
-import java.awt.FlowLayout;
-import net.miginfocom.swing.MigLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import java.awt.BorderLayout;
 
 public class FrmReporteProveedor extends JInternalFrame implements ActionListener {
 
@@ -54,7 +43,7 @@ public class FrmReporteProveedor extends JInternalFrame implements ActionListene
 	private JTextField txtFecHasta;
 	private JLabel lblNewLabel_7;
 	private JTextField txtDni;
-	private JComboBox cboPais;
+	private JComboBox<String> cboPais;
 	private JButton btnGenerar;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_8;
@@ -140,8 +129,8 @@ public class FrmReporteProveedor extends JInternalFrame implements ActionListene
 		txtDni.setBounds(163, 157, 86, 20);
 		getContentPane().add(txtDni);
 		
-		cboPais = new JComboBox();
-		cboPais.setModel(new DefaultComboBoxModel(new String[] {"", "Per\u00FA", "Chile", "Colombia", "Brazil"}));
+		cboPais = new JComboBox<String>();
+		cboPais.setModel(new DefaultComboBoxModel<String>(new String[] {"", "Per\u00FA", "Chile", "Colombia", "Brazil"}));
 		cboPais.setBounds(379, 153, 132, 22);
 		getContentPane().add(cboPais);
 		

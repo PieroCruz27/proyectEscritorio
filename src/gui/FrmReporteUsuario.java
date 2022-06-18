@@ -1,15 +1,20 @@
 package gui;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 //imports
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
 import entidad.Usuario;
@@ -17,14 +22,7 @@ import model.UsuarioModel;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.swing.JRViewer;
-import net.sf.jasperreports.view.JasperViewer;
 import util.GeneradorReporte;
-
-import java.awt.BorderLayout;
-import java.awt.event.ActionListener;
-import java.util.List;
-import java.awt.event.ActionEvent;
-import java.awt.Color;
 
 public class FrmReporteUsuario extends JInternalFrame implements ActionListener {
 
