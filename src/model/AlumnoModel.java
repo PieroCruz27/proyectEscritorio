@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -180,5 +181,62 @@ public class AlumnoModel {
 	}
 		return salida;
 	}
+	
+	
+	public List <Alumno> consultaNombreApellidoDniPaisFechareg (String nombre, String apellido, String dni, String pais, String from, String to){
+		ArrayList <Alumno> datos  = new ArrayList <Alumno>();
+		
+		Connection cn = null;
+		PreparedStatement prep = null;
+		ResultSet rs = null;
+		
+		try {
+			cn = MySqlDBConexion.getConexion();
+			
+			String sql = "select * from alumno where " + "(nombre like ?) and "
+			+ "(apellido like ?) and " + "(? = '' or DNI = ?) and " 
+			+ "(? = '' or pais = ?) and " + "(? = '' or ? = '' or fechaRegistro between ? and ?); ";
+			prep = cn.prepareStatement(sql);
+			prep.setString(1, "%" +nombre+"%");
+			prep.setString(2, "%" +apellido+"%");
+			prep.setString(3, dni);
+			prep.setString(4, dni);
+			prep.setString(5, pais);
+			prep.setString(6, pais);
+			prep.setString(7, from);
+			prep.setString(8, to);
+			
+			
+			rs = prep.executeQuery();
+			Alumno a = null;
+			while(rs.next()) {
+			a = new Alumno();
+			a.setIdAlumno(rs.getInt(1));
+			a.setNombre(rs.getString(2));
+			a.setApellido(rs.getString(3));
+			a.setDni(rs.getString(4));
+			a.setPais(rs.getString(5));
+			a.setCorreo(rs.getString(6));
+			a.setFechanac(rs.getDate(7));
+			a.setFechareg(rs.getDate(8));
+			datos.add(a);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (cn != null) cn.close();
+				if (prep != null) prep.close();
+				if (rs != null) rs.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		
+		return datos;
+	}
+	
 		
 	}
