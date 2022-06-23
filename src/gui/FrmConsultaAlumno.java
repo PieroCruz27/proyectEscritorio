@@ -20,7 +20,6 @@ import entidad.Alumno;
 import model.AlumnoModel;
 
 import java.awt.event.KeyListener;
-import java.sql.Date;
 import java.util.List;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionListener;
@@ -109,7 +108,7 @@ public class FrmConsultaAlumno extends JInternalFrame implements KeyListener, Ac
 		panel.add(txtDesde);
 		
 		cboPais = new JComboBox<String>();
-		cboPais.addItem("Seleccione:");
+		cboPais.addItem("");
 		cboPais.addItem("Perú");
 		cboPais.addItem("Chile");
 		cboPais.addItem("Ecuador");
@@ -117,6 +116,8 @@ public class FrmConsultaAlumno extends JInternalFrame implements KeyListener, Ac
 		cboPais.addItem("Venezuela");
 		cboPais.setBounds(443, 104, 136, 21);
 		panel.add(cboPais);
+		
+
 		
 		btnConsultar = new JButton(" Consultar");
 		btnConsultar.addActionListener(this);
@@ -229,10 +230,10 @@ public class FrmConsultaAlumno extends JInternalFrame implements KeyListener, Ac
 			x.getApellido(),
 			x.getDni(),
 			x.getPais(),
+			x.getCorreo(),
 			x.getFechanac(),
 			x.getFechareg(),};
 			dtm.addRow(fila);
-			limpiar();
 			}
 	}
 	

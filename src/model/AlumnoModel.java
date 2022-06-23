@@ -1,7 +1,6 @@
 package model;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -193,18 +192,22 @@ public class AlumnoModel {
 		try {
 			cn = MySqlDBConexion.getConexion();
 			
-			String sql = "select * from alumno where " + "(nombre like ?) and "
-			+ "(apellido like ?) and " + "(? = '' or DNI = ?) and " 
-			+ "(? = '' or pais = ?) and " + "(? = '' or ? = '' or fechaRegistro between ? and ?); ";
+			String sql = "select * from alumno where (nombres like ?) and "
+			+ "(apellidos like ?) and (? = '' or dni = ?) and " 
+			+ "(? = '' or pais = ?) and (? = '' or ? = '' or fechaRegistro between ? and ?); ";
 			prep = cn.prepareStatement(sql);
-			prep.setString(1, "%" +nombre+"%");
-			prep.setString(2, "%" +apellido+"%");
+			prep.setString(1, "%" +nombre+ "%");
+			prep.setString(2, "%" +apellido+ "%");
 			prep.setString(3, dni);
 			prep.setString(4, dni);
 			prep.setString(5, pais);
 			prep.setString(6, pais);
 			prep.setString(7, from);
 			prep.setString(8, to);
+			prep.setString(9, from);
+			prep.setString(10, to);
+			
+			System.out.println("SQL -->" + prep);
 			
 			
 			rs = prep.executeQuery();
