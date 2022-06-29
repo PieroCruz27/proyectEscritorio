@@ -15,7 +15,6 @@ import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
@@ -191,23 +190,21 @@ public class AutorModel {
 		}
 		return listado;
 	}
-	
-	public List<Autor> ConsultaReporteAutor(String nombres, String apellidos, String fechaDesde, String fechaHasta, String pais, String grado){
+
+	public List<Autor> ConsultaReporteAutor(String nombres, String apellidos, String fechaDesde, String fechaHasta,
+			String pais, String grado) {
 		ArrayList<Autor> listado = new ArrayList<Autor>();
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
-		
+
 		try {
 			// Obtención de la conexión
 			con = MySqlDBConexion.getConexion();
 
 			// Creación de la sentencia SQL
-			String sql = "SELECT * FROM autor WHERE "
-					+ "(nombres LIKE ?) AND "
-					+ "(apellidos LIKE ?) AND "
-					+ "(?='' OR ?='' OR fechaNacimiento BETWEEN ? AND ?) AND "
-					+ "(? = '' OR pais=?) AND "
+			String sql = "SELECT * FROM autor WHERE " + "(nombres LIKE ?) AND " + "(apellidos LIKE ?) AND "
+					+ "(?='' OR ?='' OR fechaNacimiento BETWEEN ? AND ?) AND " + "(? = '' OR pais=?) AND "
 					+ "(? = '' OR grado=?);";
 			pst = con.prepareStatement(sql);
 			pst.setString(1, "%" + nombres + "%");
@@ -220,15 +217,14 @@ public class AutorModel {
 			pst.setString(8, pais);
 			pst.setString(9, grado);
 			pst.setString(10, grado);
-			
+
 			System.out.println("SQL -->" + pst);
-			
-			//Ejecución del QUery
+
+			// Ejecución del QUery
 			rs = pst.executeQuery();
-			
-			
+
 			// Ejecución de sentencia SQL en BD
-		
+
 			Autor oAutor = null;
 			while (rs.next()) {
 				oAutor = new Autor();
@@ -245,67 +241,70 @@ public class AutorModel {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(rs != null) rs.close();
-				if(pst != null) pst.close();
-				if(con !=null) con.close();
+				if (rs != null)
+					rs.close();
+				if (pst != null)
+					pst.close();
+				if (con != null)
+					con.close();
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
 		}
-		
+
 		return listado;
 	}
-	
-	public String AutorMail(String correoOrigen, String correoDestino, String asunto, String mensaje, String clave ){
-	
-	String archivo = "reportes/reporteAutor.pdf";
-	
-	
-	Properties prpt = new Properties();
-	prpt.put("mail.smtp.host", "smtp.gmail.com");
-	prpt.setProperty("mail.smtp.starttls.enable","true");
-	prpt.setProperty("mail.smtp.port","587");
-	prpt.setProperty("mail.smtp.auth","true");
-	
-	Session sson = Session.getDefaultInstance(prpt);
-	
-	MimeMessage mssg = new MimeMessage(sson);
-	
-	
-	try {
-		mssg.setFrom(new InternetAddress(correoOrigen));
-		mssg.addRecipient(Message.RecipientType.TO, new InternetAddress(correoDestino));
-		mssg.setSubject(asunto);
-		
-					
-		MimeBodyPart adjunto = new MimeBodyPart();
-        MimeBodyPart texto = new MimeBodyPart();
-            
-         
-         File file = new File(archivo);
-         adjunto.attachFile(file);
-            
-         
-         texto.setText(mensaje);
-         Multipart mlpt = new MimeMultipart();
-         mlpt.addBodyPart(texto);
-         mlpt.addBodyPart(adjunto);
-          
-         mssg.setContent(mlpt);
-         
-         Transport trsp = sson.getTransport("smtp");
-		 trsp.connect(correoOrigen, clave);
-		 trsp.sendMessage(mssg, mssg.getRecipients(Message.RecipientType.TO));
-		 trsp.close();
-			
-						
-		 		
-	} catch (AddressException e1) {
-		e1.printStackTrace();
-	} catch(MessagingException | IOException e2) {
-		e2.printStackTrace();
+
+	public String AutorMail(String correoOrigen, String correoDestino, String asunto, String mensaje, String clave) {
+
+		String archivo = "reportes/reporteAutor.pdf";
+
+		Properties prpt = new Properties();
+		prpt.put("mail.smtp.host", "smtp.gmail.com");
+		prpt.setProperty("mail.smtp.starttls.enable", "true");
+		prpt.setProperty("mail.smtp.port", "587");
+		prpt.setProperty("mail.smtp.auth", "true");
+
+		Session sson = Session.getDefaultInstance(prpt);
+
+		MimeMessage mssg = new MimeMessage(sson);
+
+		String envio = null;
+
+		try {
+			mssg.setFrom(new InternetAddress(correoOrigen));
+			mssg.addRecipient(Message.RecipientType.TO, new InternetAddress(correoDestino));
+			mssg.setSubject(asunto);
+
+			MimeBodyPart adjunto = new MimeBodyPart();
+			MimeBodyPart texto = new MimeBodyPart();
+
+			File file = new File(archivo);
+			adjunto.attachFile(file);
+
+			texto.setText(mensaje);
+			Multipart mlpt = new MimeMultipart();
+			mlpt.addBodyPart(texto);
+			mlpt.addBodyPart(adjunto);
+
+			mssg.setContent(mlpt);
+
+			Transport trsp = sson.getTransport("smtp");
+			trsp.connect(correoOrigen, clave);
+			trsp.sendMessage(mssg, mssg.getRecipients(Message.RecipientType.TO));
+			trsp.close();
+
+			log.info("Mensaje enviado a :  " + correoDestino);
+			return envio = "Mensaje enviado a " + correoDestino;
+
+		} catch (MessagingException e1) {
+			log.info("Mensaje no enviado" + e1.getMessage());
+			envio = "Mensaje no enviado" + e1.getMessage();
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		}
+		return envio;
+
 	}
-	return correoOrigen;
-	}
-	
+
 }
