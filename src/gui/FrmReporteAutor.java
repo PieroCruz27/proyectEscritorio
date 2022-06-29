@@ -196,11 +196,7 @@ public class FrmReporteAutor extends JInternalFrame implements ActionListener {
 		pnlReporte.repaint();
 		pnlReporte.revalidate();
 		
-		
-
-		//JasperPrint print = GeneradorReporte.genera(jasper, dataSource, null);
-		//String ruta = FrmReporteAutor.class.getResource("/src/gui/FrmReporteAutor").getPath();
-		//String ruta = "reportes/";
+				
 		String pathFile = "reportes/reporteAutor.pdf";
 		try {
 			JasperExportManager.exportReportToPdfFile(print,pathFile);
@@ -208,8 +204,7 @@ public class FrmReporteAutor extends JInternalFrame implements ActionListener {
 			e1.printStackTrace();
 		}
 		
-		
-		
+	
 	}
 	protected void actionPerformedBtnLimpiar(ActionEvent e) {
 		txtNombres.setText("");

@@ -4,20 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import java.util.Properties;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -27,6 +14,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import model.AutorModel;
 
 public class FrmMailAutor extends JDialog implements ActionListener {
 
@@ -149,57 +138,18 @@ public class FrmMailAutor extends JDialog implements ActionListener {
 		String clave = new String(txtClave.getPassword());
 		String mensaje = txtCuerpoMensaje.getText();
 		
-		String archivo = "reportes/reporteAutor.pdf";
 		
+		AutorModel mAutor = new AutorModel();
 		
+		String envio = mAutor.AutorMail(correoOrigen, correoDestino, asunto, mensaje, clave);
 		
-		Properties prpt = new Properties();
-		prpt.put("mail.smtp.host", "smtp.gmail.com");
-		prpt.setProperty("mail.smtp.starttls.enable","true");
-		prpt.setProperty("mail.smtp.port","587");
-		prpt.setProperty("mail.smtp.auth","true");
-		
-		Session sson = Session.getDefaultInstance(prpt);
-		
-		MimeMessage mssg = new MimeMessage(sson);
-		
-		
-		try {
-			mssg.setFrom(new InternetAddress(correoOrigen));
-			mssg.addRecipient(Message.RecipientType.TO, new InternetAddress(correoDestino));
-			mssg.setSubject(asunto);
-			
-						
-			MimeBodyPart adjunto = new MimeBodyPart();
-	        MimeBodyPart texto = new MimeBodyPart();
-	            
-	         
-	         File file = new File(archivo);
-	         adjunto.attachFile(file);
-	            
-	         
-	         texto.setText(mensaje);
-	         Multipart mlpt = new MimeMultipart();
-	         mlpt.addBodyPart(texto);
-	         mlpt.addBodyPart(adjunto);
-	          
-	         mssg.setContent(mlpt);
-	         
-	         Transport trsp = sson.getTransport("smtp");
-			 trsp.connect(correoOrigen, clave);
-			 trsp.sendMessage(mssg, mssg.getRecipients(Message.RecipientType.TO));
-			 trsp.close();
-				
-									
+		if(envio != "") {
 			JOptionPane.showMessageDialog(this,"Email enviado");
-			
-		} catch (AddressException e1) {
-			e1.printStackTrace();
-		} catch(MessagingException | IOException e2) {
-			e2.printStackTrace();
+			limpiarCasillas();
+		}else {
+			JOptionPane.showMessageDialog(this, "Error al enviar");
 		}
 		
-		
-		limpiarCasillas();
+	
 	}
 }

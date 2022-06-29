@@ -1,11 +1,25 @@
 package model;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Logger;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 import entidad.Autor;
 import util.MySqlDBConexion;
@@ -241,4 +255,57 @@ public class AutorModel {
 		
 		return listado;
 	}
+	
+	public String AutorMail(String correoOrigen, String correoDestino, String asunto, String mensaje, String clave ){
+	
+	String archivo = "reportes/reporteAutor.pdf";
+	
+	
+	Properties prpt = new Properties();
+	prpt.put("mail.smtp.host", "smtp.gmail.com");
+	prpt.setProperty("mail.smtp.starttls.enable","true");
+	prpt.setProperty("mail.smtp.port","587");
+	prpt.setProperty("mail.smtp.auth","true");
+	
+	Session sson = Session.getDefaultInstance(prpt);
+	
+	MimeMessage mssg = new MimeMessage(sson);
+	
+	
+	try {
+		mssg.setFrom(new InternetAddress(correoOrigen));
+		mssg.addRecipient(Message.RecipientType.TO, new InternetAddress(correoDestino));
+		mssg.setSubject(asunto);
+		
+					
+		MimeBodyPart adjunto = new MimeBodyPart();
+        MimeBodyPart texto = new MimeBodyPart();
+            
+         
+         File file = new File(archivo);
+         adjunto.attachFile(file);
+            
+         
+         texto.setText(mensaje);
+         Multipart mlpt = new MimeMultipart();
+         mlpt.addBodyPart(texto);
+         mlpt.addBodyPart(adjunto);
+          
+         mssg.setContent(mlpt);
+         
+         Transport trsp = sson.getTransport("smtp");
+		 trsp.connect(correoOrigen, clave);
+		 trsp.sendMessage(mssg, mssg.getRecipients(Message.RecipientType.TO));
+		 trsp.close();
+			
+						
+		 		
+	} catch (AddressException e1) {
+		e1.printStackTrace();
+	} catch(MessagingException | IOException e2) {
+		e2.printStackTrace();
+	}
+	return correoOrigen;
+	}
+	
 }
