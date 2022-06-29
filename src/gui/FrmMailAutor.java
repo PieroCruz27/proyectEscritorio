@@ -106,8 +106,10 @@ public class FrmMailAutor extends JDialog implements ActionListener {
 		contentPanel.add(lblClave);
 
 		txtClave = new JPasswordField();
+		txtClave.setEditable(false);
 		txtClave.setBounds(128, 93, 233, 20);
 		contentPanel.add(txtClave);
+		txtClave.setText("ahyexcbqrdyvhymu");
 		
 
 		btnCancelar = new JButton("Cancelar");
@@ -148,7 +150,6 @@ public class FrmMailAutor extends JDialog implements ActionListener {
 	private void limpiarCasillas() {
 		txtCorreoDestino.setText("");
 		txtAsunto.setText("");
-		txtClave.setText("");
 		txtCuerpoMensaje.setText("");
 		txtCorreoDestino.requestFocus();
 	}
