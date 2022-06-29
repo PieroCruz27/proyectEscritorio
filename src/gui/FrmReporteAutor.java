@@ -20,6 +20,8 @@ import javax.swing.border.TitledBorder;
 
 import entidad.Autor;
 import model.AutorModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.swing.JRViewer;
@@ -45,6 +47,7 @@ public class FrmReporteAutor extends JInternalFrame implements ActionListener {
 	private JLabel lblFechaNacimientoHasta;
 	private JTextField txtFechaHasta;
 	private JButton btnLimpiar;
+	private JButton btnEmail;
 
 	public FrmReporteAutor() {
 		getContentPane().setForeground(SystemColor.activeCaption);
@@ -58,57 +61,57 @@ public class FrmReporteAutor extends JInternalFrame implements ActionListener {
 		
 		lblPais = new JLabel("Pa\u00EDs");
 		lblPais.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblPais.setBounds(118, 135, 61, 20);
+		lblPais.setBounds(58, 141, 61, 20);
 		getContentPane().add(lblPais);
 		
 		cboPais = new JComboBox<String>();
 		cboPais.setModel(new DefaultComboBoxModel<String>(new String[] {"[Seleccione]", "Per\u00FA", "Chile", "Ecuador", "Colombia", "Argentina"}));
 		cboPais.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cboPais.setBounds(186, 133, 165, 25);
+		cboPais.setBounds(126, 139, 165, 25);
 		getContentPane().add(cboPais);
 		
 		txtNombres = new JTextField();
 		txtNombres.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtNombres.setColumns(10);
-		txtNombres.setBounds(245, 57, 205, 22);
+		txtNombres.setBounds(185, 63, 205, 22);
 		getContentPane().add(txtNombres);
 		
 		lblNombre = new JLabel("Nombres");
 		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNombre.setBounds(118, 58, 84, 20);
+		lblNombre.setBounds(58, 64, 84, 20);
 		getContentPane().add(lblNombre);
 		
 		lblGrado = new JLabel("Grado");
 		lblGrado.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblGrado.setBounds(515, 136, 61, 19);
+		lblGrado.setBounds(455, 142, 61, 19);
 		getContentPane().add(lblGrado);
 		
 		lblApellido = new JLabel("Apellidos");
 		lblApellido.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblApellido.setBounds(515, 58, 90, 20);
+		lblApellido.setBounds(455, 64, 90, 20);
 		getContentPane().add(lblApellido);
 		
 		cboGrado = new JComboBox<String>();
 		cboGrado.setModel(new DefaultComboBoxModel<String>(new String[] {"[Seleccione]", "T\u00E9cnico", "Licenciado", "Doctor", "Autor"}));
 		cboGrado.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cboGrado.setBounds(600, 130, 165, 25);
+		cboGrado.setBounds(540, 136, 165, 25);
 		getContentPane().add(cboGrado);
 		
 		lblFechaDeNacimiento = new JLabel("Fecha de  nacimiento desde");
 		lblFechaDeNacimiento.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblFechaDeNacimiento.setBounds(119, 101, 209, 20);
+		lblFechaDeNacimiento.setBounds(59, 107, 209, 20);
 		getContentPane().add(lblFechaDeNacimiento);
 		
 		txtApellidos = new JTextField();
 		txtApellidos.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtApellidos.setColumns(10);
-		txtApellidos.setBounds(661, 57, 205, 22);
+		txtApellidos.setBounds(601, 63, 205, 22);
 		getContentPane().add(txtApellidos);
 		
 		txtFechaDesde = new JTextField();
 		txtFechaDesde.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtFechaDesde.setColumns(10);
-		txtFechaDesde.setBounds(327, 95, 123, 22);
+		txtFechaDesde.setBounds(267, 101, 123, 22);
 		getContentPane().add(txtFechaDesde);
 		
 		lblReporteDeAutor = new JLabel("Reporte de Autor");
@@ -119,7 +122,7 @@ public class FrmReporteAutor extends JInternalFrame implements ActionListener {
 		btnFiltrar = new JButton("Filtrar");
 		btnFiltrar.addActionListener(this);
 		btnFiltrar.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnFiltrar.setBounds(902, 58, 159, 38);
+		btnFiltrar.setBounds(846, 66, 142, 38);
 		getContentPane().add(btnFiltrar);
 		
 		pnlReporte = new JPanel();
@@ -130,24 +133,33 @@ public class FrmReporteAutor extends JInternalFrame implements ActionListener {
 		
 		lblFechaNacimientoHasta = new JLabel("Fecha de nacimiento hasta");
 		lblFechaNacimientoHasta.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblFechaNacimientoHasta.setBounds(515, 96, 205, 20);
+		lblFechaNacimientoHasta.setBounds(455, 102, 205, 20);
 		getContentPane().add(lblFechaNacimientoHasta);
 		
 		txtFechaHasta = new JTextField();
 		txtFechaHasta.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtFechaHasta.setColumns(10);
-		txtFechaHasta.setBounds(743, 94, 123, 22);
+		txtFechaHasta.setBounds(683, 100, 123, 22);
 		getContentPane().add(txtFechaHasta);
 		
 		btnLimpiar = new JButton("Limpiar filtros");
 		btnLimpiar.addActionListener(this);
 		btnLimpiar.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		btnLimpiar.setBounds(902, 115, 159, 38);
+		btnLimpiar.setBounds(998, 66, 142, 38);
 		getContentPane().add(btnLimpiar);
+		
+		btnEmail = new JButton("Enviar Email");
+		btnEmail.addActionListener(this);
+		btnEmail.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		btnEmail.setBounds(927, 115, 149, 37);
+		getContentPane().add(btnEmail);
 
 
 	}
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnEmail) {
+			actionPerformedBtnEmail(e);
+		}
 		if (e.getSource() == btnLimpiar) {
 			actionPerformedBtnLimpiar(e);
 		}
@@ -178,10 +190,26 @@ public class FrmReporteAutor extends JInternalFrame implements ActionListener {
 		
 		JRViewer visor = new JRViewer(print);
 		
+				
 		pnlReporte.removeAll();
 		pnlReporte.add(visor);
 		pnlReporte.repaint();
 		pnlReporte.revalidate();
+		
+		
+
+		//JasperPrint print = GeneradorReporte.genera(jasper, dataSource, null);
+		//String ruta = FrmReporteAutor.class.getResource("/src/gui/FrmReporteAutor").getPath();
+		//String ruta = "reportes/";
+		String pathFile = "reportes/reporteAutor.pdf";
+		try {
+			JasperExportManager.exportReportToPdfFile(print,pathFile);
+		} catch (JRException e1) {
+			e1.printStackTrace();
+		}
+		
+		
+		
 	}
 	protected void actionPerformedBtnLimpiar(ActionEvent e) {
 		txtNombres.setText("");
@@ -194,5 +222,10 @@ public class FrmReporteAutor extends JInternalFrame implements ActionListener {
 		pnlReporte.removeAll();
 		pnlReporte.repaint();
 		pnlReporte.revalidate();
+	}
+	protected void actionPerformedBtnEmail(ActionEvent e) {
+		FrmMailAutor frmMailAutor = new FrmMailAutor();
+		frmMailAutor.setVisible(true);
+		
 	}
 }
