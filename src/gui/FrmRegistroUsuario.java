@@ -20,6 +20,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import javax.swing.JComboBox;
+import java.awt.Color;
+import java.awt.Font;
 
 
 
@@ -38,6 +40,8 @@ public class FrmRegistroUsuario extends JInternalFrame implements ActionListener
 	private JComboBox<String> cboPais;
 
 	public FrmRegistroUsuario() {
+		getContentPane().setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
+		getContentPane().setBackground(Color.CYAN);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setMaximizable(true);
 		setIconifiable(true);
@@ -47,7 +51,8 @@ public class FrmRegistroUsuario extends JInternalFrame implements ActionListener
 		getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre");
-		lblNewLabel_1.setBounds(65, 68, 45, 13);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
+		lblNewLabel_1.setBounds(37, 65, 121, 13);
 		getContentPane().add(lblNewLabel_1);
 		
 		txtNombre = new JTextField();
@@ -56,7 +61,8 @@ public class FrmRegistroUsuario extends JInternalFrame implements ActionListener
 		txtNombre.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Apellidos");
-		lblNewLabel_2.setBounds(65, 110, 73, 13);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
+		lblNewLabel_2.setBounds(37, 107, 121, 13);
 		getContentPane().add(lblNewLabel_2);
 		
 		txtApellidos = new JTextField();
@@ -65,7 +71,8 @@ public class FrmRegistroUsuario extends JInternalFrame implements ActionListener
 		txtApellidos.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("DNI");
-		lblNewLabel_3.setBounds(65, 154, 45, 13);
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
+		lblNewLabel_3.setBounds(37, 151, 121, 13);
 		getContentPane().add(lblNewLabel_3);
 		
 		txtDNI = new JTextField();
@@ -75,7 +82,8 @@ public class FrmRegistroUsuario extends JInternalFrame implements ActionListener
 		txtDNI.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("Login");
-		lblNewLabel_4.setBounds(65, 202, 45, 13);
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
+		lblNewLabel_4.setBounds(37, 199, 121, 13);
 		getContentPane().add(lblNewLabel_4);
 		
 		txtLogin = new JTextField();
@@ -84,7 +92,8 @@ public class FrmRegistroUsuario extends JInternalFrame implements ActionListener
 		txtLogin.setColumns(10);
 		
 		JLabel lblNewLabel_5 = new JLabel("Password");
-		lblNewLabel_5.setBounds(65, 256, 45, 13);
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
+		lblNewLabel_5.setBounds(37, 253, 121, 13);
 		getContentPane().add(lblNewLabel_5);
 		
 		txtPasword = new JTextField();
@@ -93,7 +102,8 @@ public class FrmRegistroUsuario extends JInternalFrame implements ActionListener
 		txtPasword.setColumns(10);
 		
 		JLabel lblNewLabel_6 = new JLabel("Correo");
-		lblNewLabel_6.setBounds(65, 302, 45, 13);
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
+		lblNewLabel_6.setBounds(37, 299, 121, 13);
 		getContentPane().add(lblNewLabel_6);
 		
 		txtCorreo = new JTextField();
@@ -101,31 +111,36 @@ public class FrmRegistroUsuario extends JInternalFrame implements ActionListener
 		getContentPane().add(txtCorreo);
 		txtCorreo.setColumns(10);
 		
-		JLabel lblNewLabel_8 = new JLabel("Nacimiento");
-		lblNewLabel_8.setBounds(65, 384, 55, 13);
+		JLabel lblNewLabel_8 = new JLabel("FechaNacimiento");
+		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
+		lblNewLabel_8.setBounds(37, 345, 121, 13);
 		getContentPane().add(lblNewLabel_8);
 		
 		txtNacimiento = new JTextField();
-		txtNacimiento.setBounds(168, 381, 96, 19);
+		txtNacimiento.setBounds(168, 345, 96, 19);
 		getContentPane().add(txtNacimiento);
 		txtNacimiento.setColumns(10);
 		
-		JLabel lblNewLabel_9 = new JLabel("Direccion");
-		lblNewLabel_9.setBounds(65, 424, 55, 13);
+		JLabel lblNewLabel_9 = new JLabel("Dirección");
+		lblNewLabel_9.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
+		lblNewLabel_9.setBounds(37, 394, 121, 13);
 		getContentPane().add(lblNewLabel_9);
 		
 		txtDireccion = new JTextField();
-		txtDireccion.setBounds(168, 421, 96, 19);
+		txtDireccion.setBounds(168, 394, 96, 19);
 		getContentPane().add(txtDireccion);
 		txtDireccion.setColumns(10);
 		
-		JLabel lblNewLabel_10 = new JLabel("Pais");
-		lblNewLabel_10.setBounds(65, 458, 45, 13);
+		JLabel lblNewLabel_10 = new JLabel("País");
+		lblNewLabel_10.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 12));
+		lblNewLabel_10.setBounds(37, 433, 121, 13);
 		getContentPane().add(lblNewLabel_10);
 		
 		btnRegistrar = new JButton("Registrar");
+		btnRegistrar.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnRegistrar.setBackground(Color.LIGHT_GRAY);
 		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(378, 150, 108, 53);
+		btnRegistrar.setBounds(432, 162, 158, 53);
 		getContentPane().add(btnRegistrar);
 		
 		cboPais = new JComboBox<String>();
@@ -134,7 +149,7 @@ public class FrmRegistroUsuario extends JInternalFrame implements ActionListener
 		cboPais.addItem("Chile");
 		cboPais.addItem("Argentina");
 		cboPais.addItem("Colombia");
-		cboPais.setBounds(168, 450, 113, 21);
+		cboPais.setBounds(168, 432, 113, 21);
 		getContentPane().add(cboPais);
 		
 	
@@ -159,7 +174,7 @@ public class FrmRegistroUsuario extends JInternalFrame implements ActionListener
 		String direc = txtDireccion.getText().trim();
 		String pais = cboPais.getSelectedItem().toString();
 		
-
+		//validaciones
 		if(!nom.matches(Validaciones.TEXTO)) {
 			mensaje("El nombre es de 3 a 30 caracteres ");
 			
@@ -189,6 +204,7 @@ public class FrmRegistroUsuario extends JInternalFrame implements ActionListener
 			mensaje("selecione el pais");
 			
 		}else {
+			
 			Usuario obj = new Usuario();
 			obj.setNombre(nom);
 			obj.setApellido(ape);
@@ -199,7 +215,7 @@ public class FrmRegistroUsuario extends JInternalFrame implements ActionListener
 			obj.setFechaNacimiento(Conversiones.toFecha(fechNa));
 			obj.setDireccion(direc);
 			obj.setPais(pais);
-			
+			//pasando el model
 			UsuarioModel model = new UsuarioModel();
 			int salida = model.insertaUsuario(obj);
 			if(salida > 0 ) {
