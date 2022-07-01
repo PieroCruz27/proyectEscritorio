@@ -26,22 +26,18 @@ public class LibroModel {
 		
 			conn = MySqlDBConexion.getConexion();
 			
-		
 			String sql = "select anio, count(*) from libro where year (fechaRegistro) between ? and ? group by anio;";
 			pstm = conn.prepareStatement(sql);
 			pstm.setInt(1, Desde);
 			pstm.setInt(2, Hasta);
 			log.info(">> SQL >> " + pstm);
-			
+
 			rs = pstm.executeQuery();
-			
-	
 			Libro obj = null;
 			while(rs.next()) {
 				obj = new Libro();
 				obj.setAnio(rs.getInt(1));
 				obj.setCantidad(rs.getInt(2));
-			
 				lista.add(obj);
 			}
 		} catch (Exception e) {
@@ -53,7 +49,7 @@ public class LibroModel {
 				if (conn != null) conn.close(); 
 			} catch (Exception e2) {}
 		}
-		
 		return lista;
 	}
+	
 }

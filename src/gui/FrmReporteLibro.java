@@ -47,32 +47,39 @@ public class FrmReporteLibro extends JInternalFrame implements ActionListener {
 		btnGraficos = new JButton("FiltrarGraficos");
 		btnGraficos.addActionListener(this);
 		btnGraficos.setFont(new Font("Arial Black", Font.ITALIC, 24));
-		btnGraficos.setBounds(355, 119, 236, 59);
+		btnGraficos.setBounds(864, 116, 236, 59);
 		getContentPane().add(btnGraficos);
 		
 		JLabel lblAoInicio = new JLabel("Año inicio");
-		lblAoInicio.setBounds(140, 38, 91, 20);
+		lblAoInicio.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+		lblAoInicio.setBounds(100, 122, 91, 20);
 		getContentPane().add(lblAoInicio);
 		
 		txtAnioInicio = new JTextField();
 		txtAnioInicio.setColumns(10);
-		txtAnioInicio.setBounds(238, 39, 149, 20);
+		txtAnioInicio.setBounds(219, 123, 149, 20);
 		getContentPane().add(txtAnioInicio);
 		
 		JLabel lblAoFinal = new JLabel("Año final");
-		lblAoFinal.setBounds(484, 42, 85, 14);
+		lblAoFinal.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+		lblAoFinal.setBounds(490, 125, 85, 14);
 		getContentPane().add(lblAoFinal);
 		
 		txtAnioFinal = new JTextField();
 		txtAnioFinal.setColumns(10);
-		txtAnioFinal.setBounds(593, 39, 149, 20);
+		txtAnioFinal.setBounds(585, 123, 149, 20);
 		getContentPane().add(txtAnioFinal);
 		
 		panelReporte = new JPanel();
 		panelReporte.setBorder(new TitledBorder(null, "Reportes", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		panelReporte.setBounds(26, 237, 1099, 259);
+		panelReporte.setBounds(26, 185, 1099, 311);
 		getContentPane().add(panelReporte);
 		panelReporte.setLayout(new BorderLayout());
+		
+		JLabel lblReportesPorAo = new JLabel("Reportes por a\u00F1o de Libro");
+		lblReportesPorAo.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblReportesPorAo.setBounds(416, 36, 462, 34);
+		getContentPane().add(lblReportesPorAo);
 
 	}
 	public void actionPerformed(ActionEvent e) {
@@ -86,31 +93,32 @@ public class FrmReporteLibro extends JInternalFrame implements ActionListener {
 		String Ffin = txtAnioFinal.getText().trim();
 		
 		if (!Finicio.matches(Validaciones.ANNO)) {
-			mensaje("El año inicio tiene forma YYYY");
+			mensaje("El año es YYYY");
 		}else if (!Ffin.matches(Validaciones.ANNO)) {
-			mensaje("El año fin tiene forma YYYY");
+			mensaje("El año es YYYY");
 		}else if ( Integer.parseInt(Finicio) > Integer.parseInt(Ffin) ) {
-			mensaje("El año inicio es menor que el año fin");
+			mensaje("El año inicio tiene que ser menor");
 		}else {
-		
+			int anioInicio = Integer.parseInt(Finicio);
+			int anioFin = Integer.parseInt(Ffin);
+			
 			LibroModel model = new LibroModel();
-			ArrayList<Libro> lista = model.reporteXAño(Integer.parseInt(Finicio), Integer.parseInt(Ffin));
+			ArrayList<Libro> lista = model.reporteXAño(anioInicio, anioFin);
 			
-			JRBeanCollectionDataSource dataSource = new  JRBeanCollectionDataSource(lista);
-			
-			String jasper = "reporteGraficoAño.jasper";
-			
-			JasperPrint print = GeneradorReporte.genera(jasper, dataSource, null);
-			
-			JRViewer JRViewer = new JRViewer(print);
+			JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(lista);
+			String jasper = "reporteAño.jasper";		
+			JasperPrint print = GeneradorReporte.genera(jasper, dataSource, null);	
+			JRViewer jRViewer = new JRViewer(print);
 			
 			panelReporte.removeAll();
-			panelReporte.add(JRViewer);
+			panelReporte.add(jRViewer);
 			panelReporte.repaint();
 			panelReporte.revalidate();
 		}
 	}
-		void mensaje(String me) {
-			JOptionPane.showMessageDialog(this, me);
-}
+	
+	void mensaje(String me) {
+		JOptionPane.showMessageDialog(this, me);
 	}
+}
+
