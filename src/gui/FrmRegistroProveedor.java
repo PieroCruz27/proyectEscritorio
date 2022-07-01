@@ -5,6 +5,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JTextField;
 
@@ -12,6 +13,7 @@ import entidad.Proveedor;
 import model.ProveedorModel;
 import util.Validaciones;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
@@ -42,6 +44,8 @@ public class FrmRegistroProveedor extends JInternalFrame implements ActionListen
 	
 
 	public FrmRegistroProveedor() {
+		
+		getContentPane().setBackground(new Color(126,225,110));
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setMaximizable(true);
 		setIconifiable(true);
@@ -51,8 +55,8 @@ public class FrmRegistroProveedor extends JInternalFrame implements ActionListen
 		getContentPane().setLayout(null);
 		
 		lblTitulo = new JLabel("Registro de Proveedor");
-		lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTitulo.setBounds(86, 11, 194, 35);
+		lblTitulo.setFont(new Font("Arial", Font.BOLD, 30));
+		lblTitulo.setBounds(49, 32, 351, 35);
 		getContentPane().add(lblTitulo);
 		
 		lblNombres = new JLabel("Nombres");
@@ -126,8 +130,9 @@ public class FrmRegistroProveedor extends JInternalFrame implements ActionListen
 				
 		
 		btnNewButton = new JButton("Enviar");
+		btnNewButton.setBackground(new Color(0,201,255));
 		btnNewButton.addActionListener(this);
-		btnNewButton.setBounds(202, 306, 89, 23);
+		btnNewButton.setBounds(203, 314, 89, 23);
 		getContentPane().add(btnNewButton);
 	}
 	

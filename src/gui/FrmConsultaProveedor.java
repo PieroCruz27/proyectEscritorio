@@ -27,6 +27,7 @@ import javax.swing.table.DefaultTableModel;
 import entidad.Proveedor;
 import model.ProveedorModel;
 import util.Excel;
+import javax.swing.ImageIcon;
 
 public class FrmConsultaProveedor extends JInternalFrame implements ActionListener {
 
@@ -56,7 +57,8 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 	int hoveredRow=-1,hoveredColumn=-1;
 	private JButton btnExportar;
 	public FrmConsultaProveedor() {
-		getContentPane().setBackground(new Color(153, 153, 255));
+		
+		getContentPane().setBackground(new Color(23,175,174));
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setMaximizable(true);
 		setIconifiable(true);
@@ -66,11 +68,12 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 		getContentPane().setLayout(null);
 		
 		lblNewLabel = new JLabel("Consulta Proveedor");
-		lblNewLabel.setFont(new Font("Sylfaen", Font.BOLD, 24));
-		lblNewLabel.setBounds(354, 22, 259, 37);
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 30));
+		lblNewLabel.setBounds(354, 22, 317, 37);
 		getContentPane().add(lblNewLabel);
 		
 		lblNewLabel_1 = new JLabel("Nombres");
+		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblNewLabel_1.setBounds(39, 118, 69, 14);
 		getContentPane().add(lblNewLabel_1);
 		
@@ -80,6 +83,7 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 		txtNombre.setColumns(10);
 		
 		lblNewLabel_2 = new JLabel("Apellidos");
+		lblNewLabel_2.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblNewLabel_2.setBounds(39, 140, 69, 14);
 		getContentPane().add(lblNewLabel_2);
 		
@@ -89,6 +93,7 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 		getContentPane().add(txtApellido);
 		
 		lblNewLabel_3 = new JLabel("DNI");
+		lblNewLabel_3.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblNewLabel_3.setBounds(39, 168, 46, 14);
 		getContentPane().add(lblNewLabel_3);
 		
@@ -98,6 +103,7 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 		getContentPane().add(txtDni);
 		
 		lblNewLabel_4 = new JLabel("Tel\u00E9fono");
+		lblNewLabel_4.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblNewLabel_4.setBounds(268, 143, 59, 14);
 		getContentPane().add(lblNewLabel_4);
 		
@@ -107,6 +113,7 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 		getContentPane().add(txtTelefono);
 		
 		lblNewLabel_5 = new JLabel("Direcci\u00F3n");
+		lblNewLabel_5.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblNewLabel_5.setBounds(268, 118, 69, 14);
 		getContentPane().add(lblNewLabel_5);
 		
@@ -116,6 +123,7 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 		getContentPane().add(txtDireccion);
 		
 		lblNewLabel_6 = new JLabel("Pa\u00EDs");
+		lblNewLabel_6.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblNewLabel_6.setBounds(268, 168, 46, 14);
 		getContentPane().add(lblNewLabel_6);
 		
@@ -125,6 +133,7 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 		getContentPane().add(cboPais);
 		
 		lblNewLabel_7 = new JLabel("Fecha de Inicio");
+		lblNewLabel_7.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblNewLabel_7.setBounds(516, 121, 110, 14);
 		getContentPane().add(lblNewLabel_7);
 		
@@ -134,6 +143,7 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 		getContentPane().add(txtFecDesde);
 		
 		lblNewLabel_8 = new JLabel("Fecha de Fin");
+		lblNewLabel_8.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblNewLabel_8.setBounds(516, 149, 110, 14);
 		getContentPane().add(lblNewLabel_8);
 		
@@ -147,6 +157,7 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 		getContentPane().add(scrollPane);
 		
 		tblConsulta = new JTable();
+		tblConsulta.setBackground(new Color(191,252,250));
 		tblConsulta.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -170,7 +181,7 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 		scrollPane.setViewportView(tblConsulta);
 		
 		//color de la fila seleccionada
-		tblConsulta.setSelectionBackground(Color.GREEN);
+		tblConsulta.setSelectionBackground(new Color(53,194,169));
 		
 	    //No se pueda editar
 		tblConsulta.setDefaultEditor(Object.class, null);
@@ -194,13 +205,14 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 		lista();
 		
 		btnBuscar = new JButton("Buscar");
-		btnBuscar.setFont(new Font("Arial", Font.BOLD, 15));
-		btnBuscar.setBackground(new Color(0, 153, 102));
+		btnBuscar.setFont(new Font("Arial", Font.BOLD, 14));
+		btnBuscar.setBackground(new Color(152, 79, 151));
 		btnBuscar.addActionListener(this);
-		btnBuscar.setBounds(786, 109, 145, 31);
+		btnBuscar.setBounds(783, 159, 145, 31);
 		getContentPane().add(btnBuscar);
 		
 		lblNewLabel_9 = new JLabel("Correo");
+		lblNewLabel_9.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblNewLabel_9.setBounds(516, 174, 110, 14);
 		getContentPane().add(lblNewLabel_9);
 		
@@ -211,9 +223,9 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 		
 		btnExportar = new JButton("Exportar");
 		btnExportar.addActionListener(this);
-		btnExportar.setFont(new Font("Arial", Font.BOLD, 15));
-		btnExportar.setBackground(new Color(0, 153, 102));
-		btnExportar.setBounds(786, 151, 145, 31);
+		btnExportar.setFont(new Font("Arial", Font.BOLD, 14));
+		btnExportar.setBackground(new Color(152, 79, 151));
+		btnExportar.setBounds(783, 114, 145, 31);
 		getContentPane().add(btnExportar);
 	}
 
@@ -268,9 +280,9 @@ public class FrmConsultaProveedor extends JInternalFrame implements ActionListen
 			dtm.addRow(fila);
 		}
 	}
+
 	protected void actionPerformedBtnExportar(ActionEvent e) throws IOException, SQLException {
 		Excel rp = new Excel();
-		rp.verReporte();
-		
+		rp.verReporte("Reporte Proveedor.xlsx");
 	}
 }

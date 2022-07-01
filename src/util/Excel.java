@@ -1,5 +1,6 @@
 package util;
 
+import java.io.File;
 //import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -29,7 +30,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class Excel {
 
 
-	public void verReporte() throws IOException, SQLException {
+	public void verReporte(String filename) throws IOException, SQLException {
 
 		try (Workbook book = new XSSFWorkbook()) {
 			Sheet sheet = (Sheet) book.createSheet("Proveedor");
@@ -117,7 +118,8 @@ public class Excel {
 				sheet.autoSizeColumn(7);
 				sheet.autoSizeColumn(8);
 				sheet.setZoom(150);
-				FileOutputStream ArchivoSalida = new FileOutputStream("D:\\_WS_LPI\\ReporteProveedor.xlsx");
+				FileOutputStream ArchivoSalida = new FileOutputStream(new File(System.getProperty("user.home")+File.separator+filename));
+				//FileOutputStream ArchivoSalida = new FileOutputStream("D:\\_WS_LPI\\ReporteProveedor.xlsx");
 				book.write(ArchivoSalida);
 				ArchivoSalida.close();
 
