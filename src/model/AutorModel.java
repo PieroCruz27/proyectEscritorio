@@ -263,7 +263,8 @@ public class AutorModel {
 		prpt.setProperty("mail.smtp.starttls.enable", "true");
 		prpt.setProperty("mail.smtp.port", "587");
 		prpt.setProperty("mail.smtp.auth", "true");
-
+		
+		
 		//Sesión de email
 		Session sson = Session.getDefaultInstance(prpt);
 
