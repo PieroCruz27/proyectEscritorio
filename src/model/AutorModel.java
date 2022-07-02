@@ -257,25 +257,30 @@ public class AutorModel {
 
 	public String AutorMail(String correoOrigen, String correoDestino, String asunto, String mensaje, String clave) {
 
-		String archivo = "reportes/reporteAutor.pdf";
-
+		//Propiedades del correo
 		Properties prpt = new Properties();
-		prpt.put("mail.smtp.host", "smtp.gmail.com");
+		prpt.setProperty("mail.smtp.host", "smtp.gmail.com");
 		prpt.setProperty("mail.smtp.starttls.enable", "true");
 		prpt.setProperty("mail.smtp.port", "587");
 		prpt.setProperty("mail.smtp.auth", "true");
 
+		//Sesión de email
 		Session sson = Session.getDefaultInstance(prpt);
 
 		MimeMessage mssg = new MimeMessage(sson);
 
 		String envio = null;
+		
 
 		try {
+			
+			//Cabecera del correo
 			mssg.setFrom(new InternetAddress(correoOrigen));
 			mssg.addRecipient(Message.RecipientType.TO, new InternetAddress(correoDestino));
 			mssg.setSubject(asunto);
-
+			
+			//Archivo adjunto y mensaje
+			String archivo = "reportes/reporteAutor.pdf";
 			MimeBodyPart adjunto = new MimeBodyPart();
 			MimeBodyPart texto = new MimeBodyPart();
 
@@ -288,7 +293,8 @@ public class AutorModel {
 			mlpt.addBodyPart(adjunto);
 
 			mssg.setContent(mlpt);
-
+			
+			//Envío del mensaje
 			Transport trsp = sson.getTransport("smtp");
 			trsp.connect(correoOrigen, clave);
 			trsp.sendMessage(mssg, mssg.getRecipients(Message.RecipientType.TO));
